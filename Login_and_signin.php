@@ -22,7 +22,7 @@ if ($conn->connect_error) {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(120deg, #e0e7ef 0%, #f8fafc 100%);
+      background: url(icons/cover.jpeg);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -30,7 +30,7 @@ if ($conn->connect_error) {
       font-family: 'Inter', Arial, Helvetica, sans-serif;
     }
     .login-container {
-      background: #fff;
+      background: #fcfcfcff;
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
       border-radius: 9px;
       padding: 78px 66px 86px 56px;
@@ -181,10 +181,6 @@ if ($conn->connect_error) {
       <button class="role-btn client" type="button">
         Client
         <img class="icon" src="icons/user.png" alt="Client">
-      </button>
-      <button class="role-btn admin" type="button">
-        Admin
-        <img class="icon" src="icons/manager.png" alt="Admin">
       </button>
       <span>or</span>
       <button class="role-btn guest" type="button">
