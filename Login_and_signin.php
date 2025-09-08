@@ -16,11 +16,182 @@ if ($conn->connect_error) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOGIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #e0e7ef 0%, #f8fafc 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+    }
+    .login-container {
+      background: #fff;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      border-radius: 9px;
+      padding: 78px 66px 86px 56px;
+      min-width: 370px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.3s;
+    }
+    .login-container h2 {
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 32px;
+      color: #22223b;
+      letter-spacing: 0.5px;
+    }
+    span {
+      font-size: 1rem;
+      color: #6b7280;
+      margin: 5px 50%;
+    }
+    .role-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      width: 100%;
+    }
+    .role-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 350px;
+      padding: 14px 22px 14px 24px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 32px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
+      transition: box-shadow 0.2s, background 0.3s;
+      position: relative;
+      overflow: hidden;
+      outline: none;
+    }
+    .role-btn .icon {
+      width: 28px;
+      height: 28px;
+      margin-left: 18px;
+    }
+    .role-btn.client {
+      background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 100%);
+      color: #fff;
+    }
+    .role-btn.admin {
+      background: linear-gradient(90deg, #c084fc 0%, #a5b4fc 100%);
+      color: #fff;
+    }
+    .role-btn.guest {
+      background: #e5e7eb;
+      color: #22223b;
+    }
+    .role-btn:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      width: 200%;
+      height: 200%;
+      transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s;
+      opacity: 0;
+      z-index: 1;
+    }
+    .role-btn:active:before {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      transition: 0s;
+    }
+    .role-btn:hover {
+      box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.18);
+    }
+    .role-btn.client:hover {
+      background: linear-gradient(90deg, #60a5fa 0%, #38bdf8 100%);
+    }
+    .role-btn.admin:hover {
+      background: linear-gradient(90deg, #a5b4fc 0%, #c084fc 100%);
+    }
+    .role-btn.guest:hover {
+      background: #d1d5db;
+    }
+    .role-btn .icon {
+      z-index: 2;
+    }
+    @media (max-width: 500px) {
+      .login-container {
+        min-width: 90vw;
+        padding: 32px 8vw;
+      }
+      .role-btn {
+        width: 100%;
+      }
+    }
+  </style>
+  <script>
+  // Water ripple effect on click
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.role-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = (e.offsetX - 50) + 'px';
+        ripple.style.top = (e.offsetY - 50) + 'px';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+  });
+  </script>
+  <style>
+    .ripple {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: ripple-animate 0.6s linear;
+      z-index: 1;
+    }
+    @keyframes ripple-animate {
+      from {
+        transform: scale(0);
+        opacity: 0.7;
+      }
+      to {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    
+  <div class="login-container">
+    <h2>Log in to ELECTRO-SHOP as</h2>
+    <div class="role-btns">
+      <button class="role-btn client" type="button">
+        Client
+        <img class="icon" src="icons/user.png" alt="Client">
+      </button>
+      <button class="role-btn admin" type="button">
+        Admin
+        <img class="icon" src="icons/manager.png" alt="Admin">
+      </button>
+      <span>or</span>
+      <button class="role-btn guest" type="button">
+        Continue as Guest
+        <img class="icon" src="icons/question.png" alt="Guest">
+      </button>
+    </div>
+  </div>
 </body>
 </html>
