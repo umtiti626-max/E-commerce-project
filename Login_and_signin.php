@@ -44,8 +44,8 @@ if ($conn->connect_error) {
       font-weight: 600;
       font-size: 1.4rem;
       margin-bottom: 32px;
-      color: #22223b;
-      letter-spacing: 0.5px;
+      color: #26263870;
+      
     }
     span {
       font-size: 1rem;
@@ -176,7 +176,7 @@ if ($conn->connect_error) {
 </head>
 <body>
   <div class="login-container">
-    <h2>Log in to ELECTRO-SHOP as</h2>
+    <h2>Login to site as</h2>
     <div class="role-btns">
       <button class="role-btn client" type="button">
         Client
