@@ -42,9 +42,9 @@ if ($conn->connect_error) {
     }
     .login-container h2 {
       font-weight: 600;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       margin-bottom: 32px;
-      color: #26263870;
+      color: #0505e06c;
       
     }
     span {
