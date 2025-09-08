@@ -35,6 +35,7 @@ if ($conn->connect_error) {
       border-radius: 9px;
       padding: 78px 66px 86px 56px;
       min-width: 370px;
+      margin-left: 5%;
       display: flex;
       flex-direction: column;
       align-items: center;
