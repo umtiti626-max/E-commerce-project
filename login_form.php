@@ -13,10 +13,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background:url(icons/cover.jpeg);
+            background: url(icons/cover2.jpeg) no-repeat center center fixed;
+            background-size: cover;
         }
         .login-container {
-            background: #fff;
+            background: #ffffffff;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
             border-radius: 9px;
             padding: 64px 76px 96px 66px;
@@ -98,6 +99,7 @@
         .login-btn {
             width: 110%;
             padding: 15px 0px;
+            margin-bottom: 2rem;
             background: linear-gradient(90deg, #c084fc 0%, #a5b4fc 100%);
             color: #fff;
             border: none;
@@ -189,7 +191,25 @@
             </div>
             <button type="submit" class="login-btn">Login</button>
         </form>
-        <a class="signup-link" href="register.php">Don't have an account?</a>
+        <div class="signup-row">
+            <span>Don't have an account?</span>
+            <a class="signup-link" id="showSignup" href="#" style="color:#a259f7;text-decoration:none;">Sign up</a>
+        </div>
+        <div id="signupFrameWrapper" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:rgba(255,255,255,0.95);align-items:center;justify-content:center;animation:slideIn 0.7s cubic-bezier(.4,0,.2,1);">
+            <iframe id="signupFrame" src="signin.php" style="width:500px;max-width:95vw;height:90vh;border:none;border-radius:24px;box-shadow:0 8px 32px 0 rgba(31,38,135,0.18);"></iframe>
+        </div>
+        <style>@keyframes slideIn { from { opacity:0; transform:translateY(60px);} to { opacity:1; transform:translateY(0);} }</style>
+        <script>
+        document.getElementById('showSignup').onclick = function(e){
+            window.location.href = 'signin.php';
+        };
+        window.addEventListener('message', function(event) {
+            if(event.data==='close-signup') {
+                document.getElementById('signupFrameWrapper').style.display='none';
+                document.querySelector('.login-container').style.display='flex';
+            }
+        });
+        </script>
     </div>
     <script>
     // Water ripple effect for login button
