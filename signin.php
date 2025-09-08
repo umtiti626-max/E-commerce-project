@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url(icons/cover2.jpeg) no-repeat center center fixed;
+            background: url(icons/top-view-virtual-reality-headset-white-headphones.jpg) no-repeat center center fixed;
             background-size: cover;
         }
         .login-container {

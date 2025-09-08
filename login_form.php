@@ -13,7 +13,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url(icons/cover2.jpeg) no-repeat center center fixed;
+            background: url(icons/wireless-keyboard-mouse-earphones-table.jpg) no-repeat center center fixed;
             background-size: cover;
         }
         .login-container {

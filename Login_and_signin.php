@@ -1,18 +1,3 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce_system";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-// Connection successful
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +7,8 @@ if ($conn->connect_error) {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: url(icons/cover.jpeg);
+      background: url(icons/top-view-desk-assortment-with-copy-space.jpg) no-repeat center center fixed;
+      background-size: cover;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -151,6 +137,14 @@ if ($conn->connect_error) {
       });
     });
   });
+  document.addEventListener('DOMContentLoaded', function() {
+    var clientBtn = document.getElementById('clientview');
+    if (clientBtn) {
+      clientBtn.onclick = function() {
+        window.location.href = 'login_form.php';
+      };
+    }
+  });
   </script>
   <style>
     .ripple {
@@ -179,7 +173,7 @@ if ($conn->connect_error) {
   <div class="login-container">
     <h2>Login to site as</h2>
     <div class="role-btns">
-      <button class="role-btn client" type="button">
+      <button class="role-btn client" id="clientview"  type="button">
         Client
         <img class="icon" src="icons/user.png" alt="Client">
       </button>
