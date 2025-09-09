@@ -68,8 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $created_at = date('Y-m-d H:i:s');
-    $stmt = $conn->prepare("INSERT INTO client (name, email, password, profile_image, created_at) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $name, $email, $hashed_password, $image_path, $created_at);
+    $phonenumber = trim($_POST['phonenumber'] ?? '');
+    if (!$phonenumber) {
+        echo json_encode(["status" => "error", "field" => "phonenumber", "message" => "Phone number is required."]);
+        exit;
+    }
+    $stmt = $conn->prepare("INSERT INTO client (name, email, password, profile_image, phonenumber, created_at) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $name, $email, $hashed_password, $image_path, $phonenumber, $created_at);
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Account created successfully!"]);
     } else {
@@ -101,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background: #fff;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
             border-radius: 8px;
-            padding: 44px 36px 36px 36px;
+            padding: 84px 56px 66px 56px;
             min-width: 370px;
             display: flex;
             flex-direction: column;
@@ -133,6 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: 1.5px solid #e5e7eb;
             border-radius: 38px;
             font-size: 1.08rem;
+            margin-bottom: 1.5rem;
             background: #f7f8fa;
             transition: border 0.3s, box-shadow 0.3s;
             outline: none;
@@ -144,14 +150,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .input-group label {
             position: absolute;
             left: 18px;
-            top: 50%;
+            top: 30%;
             transform: translateY(-50%);
             background: transparent;
             color: #a1a1aa;
             font-size: 1.08rem;
             pointer-events: none;
             transition: 0.2s cubic-bezier(.4,0,.2,1);
-            padding: 0 4px;
+            padding: 0px 4px;
         }
         .input-group input:focus + label,
         .input-group input:not(:placeholder-shown) + label {
@@ -169,9 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .upload-btn { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); background: #a259f7; color: #fff; border: none; border-radius: 18px; padding: 4px 18px; font-size: 0.95rem; cursor: pointer; opacity: 0.95; transition: background 0.2s; z-index: 2; display:none; }
         .upload-btn:hover { background: #7c3aed; }
         .image-upload-wrapper:hover .upload-btn { display: block !important; }
-        .msg { font-size: 0.93rem; margin-top: 2px; min-height: 18px; }
+        .msg { font-size: 0.93rem; margin-bottom: 20px;margin-top: -15px ;min-height: 5px; }
         .msg.error { color: #e11d48; }
-        .msg.success { color: #22c55e; }
         .login-btn {
             width: 100%;
             padding: 15px 0;
@@ -224,38 +229,112 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-container">
         <div class="login-header">Sign Up</div>
         <form class="login-form" id="signupForm" enctype="multipart/form-data" autocomplete="off">
-            <div class="input-group" style="flex-direction:column;align-items:center;">
-                <div class="image-upload-wrapper" id="imageUploadWrapper">
-                    <img src="icons/user.png" id="previewImg" class="profile-img" alt="Profile Image">
-                    <input type="file" id="imageInput" name="profile_image" accept="image/*" style="display:none;">
-                    <button type="button" id="uploadBtn" class="upload-btn">Upload</button>
+            <div id="step1">
+                <div class="input-group">
+                    <input type="text" id="name" name="name" required placeholder=" ">
+                    <label for="name">Client Name</label>
+                    <span class="tick" id="nameTick"></span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="signup_email" name="email" required placeholder=" ">
+                    <label for="signup_email">Email</label>
+                    <span class="tick" id="emailTick"></span>
+                    <div id="emailMsg" class="msg"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signup_password" name="password" required placeholder=" ">
+                    <label for="signup_password">Password</label>
+                    <span class="tick" id="passwordTick"></span>
+                    <div id="passwordMsg" class="msg"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder=" ">
+                    <label for="confirm_password">Confirm Password</label>
+                    <span class="tick" id="confirmTick"></span>
+                    <div id="confirmMsg" class="msg"></div>
+                </div>
+                <button type="button" class="login-btn" id="nextStepBtn">Next</button>
+                <div class="signup-row" style="margin-top:10px;">
+                    <span>Already have an account?</span>
+                    <a class="signup-link" id="showLogin" href="login_form.php">Login</a>
                 </div>
             </div>
-            <div class="input-group">
-                <input type="text" id="name" name="name" required placeholder=" ">
-                <label for="name">Client Name</label>
+            <div id="step2" style="display:none;animation:slideInLeft 0.5s forwards;">
+                <div class="input-group" style="flex-direction:column;align-items:center;">
+                    <div class="image-upload-wrapper" id="imageUploadWrapper">
+                        <img src="icons/user.png" id="previewImg" class="profile-img" alt="Profile Image">
+                        <input type="file" id="imageInput" name="profile_image" accept="image/*" style="display:none;">
+                        <button type="button" id="uploadBtn" class="upload-btn">Upload</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="phonenumber" name="phonenumber" required placeholder=" ">
+                    <label for="phonenumber">Phone Number</label>
+                    <span class="tick" id="phoneTick"></span>
+                </div>
+                <button type="submit" class="login-btn" id="finalSignUpBtn" disabled>Sign Up</button>
+                <button type="button" class="back-btn">Back</button>
             </div>
-            <div class="input-group">
-                <input type="email" id="signup_email" name="email" required placeholder=" ">
-                <label for="signup_email">Email</label>
-                <div id="emailMsg" class="msg"></div>
-            </div>
-            <div class="input-group">
-                <input type="password" id="signup_password" name="password" required placeholder=" ">
-                <label for="signup_password">Password</label>
-                <div id="passwordMsg" class="msg"></div>
-            </div>
-            <div class="input-group">
-                <input type="password" id="confirm_password" name="confirm_password" required placeholder=" ">
-                <label for="confirm_password">Confirm Password</label>
-                <div id="confirmMsg" class="msg"></div>
-            </div>
-            <button type="submit" class="login-btn">Sign Up</button>
-            <div class="signup-row" style="margin-top:10px;">
-                <span>Already have an account?</span>
-                <a class="signup-link" id="showLogin" href="login_form.php">Login</a>
-            </div>
+    <style>
+    .input-group { transition: min-height 0.4s cubic-bezier(.4,0,.2,1), margin-bottom 0.4s cubic-bezier(.4,0,.2,1); }
+    /* Remove input height increase on focus */
+        .tick {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            position: absolute;
+            color: green;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: url('icons/check.png') no-repeat center center/18px 18px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .tick.active { opacity: 1; }
+        .back-btn {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 18px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #333; }
+        #step2 { position: relative; min-height: 320px; transition: min-height 0.4s cubic-bezier(.4,0,.2,1); }
+        #step1 { transition: min-height 0.4s cubic-bezier(.4,0,.2,1); }
+    </style>
         </form>
+    <style>
+        @keyframes slideInLeft {
+            from { opacity:0; transform:translateX(100px); }
+            to { opacity:1; transform:translateX(0); }
+        }
+        .back-btn {
+           
+            left: 8px;
+            bottom: 4px;
+            margin-top: 20px;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 18px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #333; }
+    </style>
     </div>
     <div id="popupMsg" class="popup-msg"></div>
     <script>
@@ -269,6 +348,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             this.appendChild(ripple);
             setTimeout(() => ripple.remove(), 600);
         });
+    });
+    // Step logic
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const nextStepBtn = document.getElementById('nextStepBtn');
+    const signupForm = document.getElementById('signupForm');
+    const phoneInput = document.getElementById('phonenumber');
+    const finalSignUpBtn = document.getElementById('finalSignUpBtn');
+    // Hide step2 initially
+    step2.style.display = 'none';
+    // Next button logic
+    nextStepBtn.onclick = function() {
+        // Validate all fields in step1
+        let valid = true;
+        step1.querySelectorAll('input').forEach(function(input){
+            if (!input.value) valid = false;
+        });
+        if (!valid) return;
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+    };
+    // Back button logic
+    step2.querySelector('.back-btn').onclick = function() {
+        step2.style.display = 'none';
+        step1.style.display = 'block';
+    };
+    // Enable sign up only if phone is entered
+    phoneInput.addEventListener('input', function() {
+        finalSignUpBtn.disabled = !phoneInput.value.trim();
     });
     // Image upload preview and button
     const imageInput = document.getElementById('imageInput');
@@ -284,10 +392,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
-    // Email uniqueness check (AJAX)
+    // Email uniqueness check (AJAX) and tick
     document.getElementById('signup_email').addEventListener('input', function(){
         const email = this.value.trim();
         const emailMsg = document.getElementById('emailMsg');
+        const emailTick = document.getElementById('emailTick');
+        emailTick.classList.remove('active');
         if (!email) { emailMsg.textContent = ''; emailMsg.className = 'msg'; return; }
         if (!email.includes('@')) {
             emailMsg.textContent = "Invalid email, missing a '@' in the email";
@@ -305,44 +415,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 emailMsg.textContent = 'Email already exists';
                 emailMsg.className = 'msg error';
             } else {
-                emailMsg.textContent = 'Email accepted';
-                emailMsg.className = 'msg success';
+                emailMsg.textContent = '';
+                emailTick.classList.add('active');
             }
         });
     });
-    // Password strength check
+    // Password strength check and tick
     document.getElementById('signup_password').addEventListener('input', function(){
         const val = this.value;
         const msg = document.getElementById('passwordMsg');
+        const passwordTick = document.getElementById('passwordTick');
+        passwordTick.classList.remove('active');
         if (!val) { msg.textContent = ''; msg.className = 'msg'; return; }
         if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d]).{8,}$/.test(val)) {
             msg.textContent = 'Password must be 8+ chars, upper, lower, number, special char.';
             msg.className = 'msg error';
         } else {
-            msg.textContent = 'Strong password';
-            msg.className = 'msg success';
+            msg.textContent = '';
+            passwordTick.classList.add('active');
         }
     });
-    // Confirm password match
+    // Confirm password match and tick
     document.getElementById('confirm_password').addEventListener('input', function(){
         const val = this.value;
         const pw = document.getElementById('signup_password').value;
         const msg = document.getElementById('confirmMsg');
+        const confirmTick = document.getElementById('confirmTick');
+        confirmTick.classList.remove('active');
         if (!val) { msg.textContent = ''; msg.className = 'msg'; return; }
         if (val !== pw) {
             msg.textContent = 'Passwords do not match';
             msg.className = 'msg error';
         } else {
-            msg.textContent = 'Passwords match';
-            msg.className = 'msg success';
+            msg.textContent = '';
+            confirmTick.classList.add('active');
+        }
+    });
+    // Name tick
+    document.getElementById('name').addEventListener('input', function(){
+        const nameTick = document.getElementById('nameTick');
+        if (this.value.trim().length > 1) {
+            nameTick.classList.add('active');
+        } else {
+            nameTick.classList.remove('active');
+        }
+    });
+    // Phone tick
+    document.getElementById('phonenumber').addEventListener('input', function(){
+        const phoneTick = document.getElementById('phoneTick');
+        if (this.value.trim().length > 5) {
+            phoneTick.classList.add('active');
+        } else {
+            phoneTick.classList.remove('active');
         }
     });
     // Sign up form submit
-    document.getElementById('signupForm').onsubmit = function(e){
+    signupForm.onsubmit = function(e){
         e.preventDefault();
+        if (step2.style.display !== 'block') return; // Only submit on step2
         const form = e.target;
         const formData = new FormData(form);
-    fetch('signin.php', { method: 'POST', body: formData })
+        fetch('signin.php', { method: 'POST', body: formData })
         .then(res => res.json())
         .then(data => {
             if (data.status === 'success') {
