@@ -175,7 +175,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .upload-btn { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); background: #a259f7; color: #fff; border: none; border-radius: 18px; padding: 4px 18px; font-size: 0.95rem; cursor: pointer; opacity: 0.95; transition: background 0.2s; z-index: 2; display:none; }
         .upload-btn:hover { background: #7c3aed; }
         .image-upload-wrapper:hover .upload-btn { display: block !important; }
-        .msg { font-size: 0.93rem; margin-bottom: 20px;margin-top: -15px ;min-height: 5px; }
+        .msg {
+            font-size: 0.93rem;
+            margin-bottom: 25px;
+            margin-top: -19px;
+            min-height: 5px;
+            max-width: 90%;
+            word-break: break-word;
+            white-space: pre-line;
+            display: block;
+                overflow-wrap: break-word;
+                box-sizing: border-box;
+        }
+            .login-container, .login-form {
+                max-width: 420px;
+                min-width: 320px;
+                width: 100%;
+            }
+            @media (max-width: 600px) {
+                .login-container {
+                    min-width: 95vw;
+                    max-width: 99vw;
+                    padding: 32px 4vw 32px 4vw;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 12px 0 rgba(31,38,135,0.10);
+                }
+                .login-header {
+                    font-size: 1.9rem;
+                    margin-bottom: 1.2rem;
+                }
+                .login-form {
+                    gap: 18px;
+                }
+                .input-group input {
+                    width: 90%;
+                    font-size: 1rem;
+                    padding: 14px 40px 14px 14px;
+                    border-radius: 28px;
+                }
+                .input-group label {
+                    font-size: 1rem;
+                    left: 14px;
+                }
+                .profile-img {
+                    width: 56px;
+                    height: 56px;
+                }
+                .login-btn, .back-btn {
+                    font-size: 1rem;
+                    padding: 12px 0;
+                    border-radius: 18px;
+                }
+                .signup-row {
+                    font-size: 0.98rem;
+                }
+            }
+            @media (max-width: 380px) {
+                .login-container {
+                    min-width: 100vw;
+                    max-width: 100vw;
+                    padding: 12px 2vw 12px 2vw;
+                }
+                .login-header {
+                    font-size: 1.4rem;
+                }
+                .input-group input {
+                    width: 80%;
+                    font-size: 1rem;
+                    padding: 14px 40px 14px 14px;
+                    border-radius: 28px;
+                }
+                .login-header {
+                    font-size: 1.9rem;
+                    margin-bottom: 1.2rem;
+                }
+            }
         .msg.error { color: #e11d48; }
         .login-btn {
             width: 100%;
