@@ -179,7 +179,7 @@
 <body>
     <div class="login-container">
         <div class="login-header">ELECTROSHOP</div>
-        <form class="login-form" method="POST" action="process_login.php" autocomplete="off">
+        <form class="login-form" id="loginForm" autocomplete="off">
             <div class="input-group">
                 <input type="text" id="email_or_number" name="email_or_number" required placeholder=" " autocomplete="off">
                 <label for="email_or_number">Email </label>
@@ -191,6 +191,11 @@
             </div>
             <button type="submit" class="login-btn">Login</button>
         </form>
+        <div id="popupMsg" class="popup-msg"></div>
+    <style>
+        .popup-msg { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #22c55e; color: #fff; padding: 16px 32px; border-radius: 16px; font-size: 1.1rem; font-weight: 600; box-shadow: 0 4px 24px rgba(34,197,94,0.18); display: none; z-index: 999; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    </style>
         <div class="signup-row">
             <span>Don't have an account?</span>
             <a class="signup-link" id="showSignup" href="#" style="color:#a259f7;text-decoration:none;">Sign up</a>
@@ -239,6 +244,24 @@
             togglePassword.alt = 'Show Password';
         }
     });
+
+    // Login form AJAX
+    document.getElementById('loginForm').onsubmit = function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch('login_process.php', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+            showPopup(data.message, data.status === 'success');
+        });
+    };
+    function showPopup(msg, success) {
+        const popup = document.getElementById('popupMsg');
+        popup.textContent = msg;
+        popup.style.background = success ? '#22c55e' : '#e11d48';
+        popup.style.display = 'block';
+        setTimeout(()=>{ popup.style.display = 'none'; }, 4000);
+    }
     </script>
 </body>
 </html>
