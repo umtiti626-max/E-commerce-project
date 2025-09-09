@@ -399,7 +399,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const emailTick = document.getElementById('emailTick');
         emailTick.classList.remove('active');
         if (!email) { emailMsg.textContent = ''; emailMsg.className = 'msg'; return; }
-        if (!email.includes('@')) {
+        if (!email.includes("@")) {
             emailMsg.textContent = "Invalid email, missing a '@' in the email";
             emailMsg.className = 'msg error';
             return;
