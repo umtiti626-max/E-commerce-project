@@ -148,22 +148,25 @@
             color: #a5b4fc;
             text-decoration: underline;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 414px) and (max-height: 896px) {
             .login-container {
+                padding: 48px 32px 64px 32px;
                 min-width: 90vw;
-                padding: 32px 8vw;
+                margin-left: 0;
+            }
+            .login-form {
+                margin-left: 0;
+            }
+            .login-btn {
+                width: 104%;
+                margin-left: -12px;
+            }
+            .input-group input {
+                width: 87%;
+                margin-left: -12px;
             }
         }
-        .ripple {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: ripple-animate 0.6s linear;
-            z-index: 1;
-        }
+
         @keyframes ripple-animate {
             from {
                 transform: scale(0);
