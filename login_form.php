@@ -249,7 +249,7 @@
     document.getElementById('loginForm').onsubmit = function(e) {
         e.preventDefault();
         const formData = new FormData(this);
-        fetch('login_process.php', { method: 'POST', body: formData })
+        fetch('php logics/login_process.php', { method: 'POST', body: formData })
         .then(res => res.json())
         .then(data => {
             showPopup(data.message, data.status === 'success');

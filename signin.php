@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .input-group label {
             position: absolute;
             left: 18px;
-            top: 30%;
+            top: 40%;
             transform: translateY(-50%);
             background: transparent;
             color: #a1a1aa;
