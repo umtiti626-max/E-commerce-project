@@ -204,12 +204,12 @@
             <a class="signup-link" id="showSignup" href="#" style="color:#a259f7;text-decoration:none;">Sign up</a>
         </div>
         <div id="signupFrameWrapper" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:rgba(255,255,255,0.95);align-items:center;justify-content:center;animation:slideIn 0.7s cubic-bezier(.4,0,.2,1);">
-            <iframe id="signupFrame" src="signin.php" style="width:500px;max-width:95vw;height:90vh;border:none;border-radius:24px;box-shadow:0 8px 32px 0 rgba(31,38,135,0.18);"></iframe>
+            <iframe id="signupFrame" src="signin.html" style="width:500px;max-width:95vw;height:90vh;border:none;border-radius:24px;box-shadow:0 8px 32px 0 rgba(31,38,135,0.18);"></iframe>
         </div>
         <style>@keyframes slideIn { from { opacity:0; transform:translateY(60px);} to { opacity:1; transform:translateY(0);} }</style>
         <script>
         document.getElementById('showSignup').onclick = function(e){
-            window.location.href = 'signin.php';
+            window.location.href = 'signin.html';
         };
         window.addEventListener('message', function(event) {
             if(event.data==='close-signup') {
