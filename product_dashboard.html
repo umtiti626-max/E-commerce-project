@@ -51,8 +51,8 @@
     }
     .logo-img{
         display: flex;
-        width: 200px;
-        margin-left: 20px;
+        width: 220px;
+        margin-left: 60px;
     }
    
 
@@ -217,7 +217,7 @@
       cursor: pointer;
       border: none;
       background: none;
-      font-size: 1.1rem;
+      font-size: 0.7rem;
       margin-right: 8px;
       transition: color 0.2s, transform 0.2s;
     }
@@ -679,20 +679,30 @@
         opacity: 0;
       }
     }
-   input[type="file"] {
-  border: 2px solid #a259f7;
-  background: #fff;
-  border-radius: 5px;
+    .custom-file-label {
+  display: inline-block;
   padding: 8px 18px;
+  border: 2px solid #a259f7;
+  border-radius: 5px;
   color: #a259f7;
+  background: #fff;
   font-weight: 600;
   cursor: pointer;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+.custom-file-label:hover {
+  border-color: #7c3aed;
+  color: #7c3aed;
+}
+.custom-file-input {
+  display: none;
 }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="logo"><img class="logo-img" src="icons/FullLogo__6_-removebg-preview.png" ></div>
+    <div class="logo"><img class="logo-img" src="icons/FullLogo_NoBuffer.png" ></div>
 
   </div>
   <div class="main-content">
@@ -739,7 +749,8 @@
             <th>Image</th>
             <th>Name</th>
             <th>Description</th>
-            <th>Category</th>
+             <th>Specifications</th>
+             <th>Category</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Actions</th>
@@ -753,7 +764,7 @@
         // Fetch products and display in the table
         // Pagination logic
         let currentPage = 1;
-        const productsPerPage = 6;
+  const productsPerPage = 5;
         function renderProductsTable(products) {
           const tbody = document.getElementById('productsTableBody');
           const totalPages = Math.ceil(products.length / productsPerPage) || 1;
@@ -774,7 +785,8 @@
               </td>
               <td>${prod.name}</td>
               <td style="max-width:220px;white-space:pre-line;overflow-wrap:break-word;">${prod.description || ''}</td>
-              <td>${prod.category}</td>
+                <td style="max-width:220px;white-space:pre-line;overflow-wrap:break-word;">${prod.Specifications || ''}</td>
+                <td>${prod.category}</td>
               <td>$${parseFloat(prod.price).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td class="stock">${prod.stock}</td>
               <td>
@@ -966,12 +978,9 @@
   document.getElementById('updateProductId').value = cells[0].textContent.trim();
   document.getElementById('updateProductName').value = cells[2].textContent.trim();
   document.getElementById('updateProductDesc').value = cells[3].textContent.trim();
-  // Find the product in allProducts by ID to get specifications
-  let prodId = cells[0].textContent.trim();
-  let prod = (window.allProducts || []).find(p => String(p.product_id) === prodId);
-  document.getElementById('updateProductSpecs').value = prod && (prod.Specifications || prod.specification || prod.specs || prod.spec) ? (prod.Specifications || prod.specification || prod.specs || prod.spec) : '';
-  document.getElementById('updateProductCategory').value = cells[4].textContent.trim();
-  document.getElementById('updateProductPrice').value = parseFloat(cells[5].textContent.replace('$','').replace(/,/g,''));
+    document.getElementById('updateProductSpecs').value = cells[4].textContent.trim();
+    document.getElementById('updateProductCategory').value = cells[5].textContent.trim();
+    document.getElementById('updateProductPrice').value = parseFloat(cells[6].textContent.replace('$','').replace(/,/g,''));
       // Hide add panel, show update panel
       document.getElementById('addProductPanel').classList.remove('active');
       document.getElementById('updateProductPanel').classList.add('active');
@@ -1090,9 +1099,12 @@
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          // Hide panel, reload products
+          // Hide panel, reload products, slide out panel
           document.getElementById('addProductPanel').classList.remove('active');
+          document.getElementById('addProductPanel').style.display = 'none';
           document.getElementById('productsSection').style.width = '100%';
+          document.getElementById('panelContainer').style.width = '0%';
+          document.getElementById('productsSection').style.flex = '1 1 0';
           fetchProductsAndCategories();
           form.reset();
         } else {

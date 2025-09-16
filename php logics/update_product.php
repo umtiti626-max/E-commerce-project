@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category = trim($_POST['category'] ?? '');
     $price = floatval($_POST['price'] ?? 0);
     $imagePath = trim($_POST['current_image'] ?? '');
+    // Always extract filename from current_image
+    if ($imagePath) {
+        $imagePath = basename($imagePath);
+    }
 
     // Handle new image upload (optional)
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
