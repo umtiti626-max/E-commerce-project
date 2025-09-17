@@ -1,11 +1,134 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
+  <style> 
+          /* Dark mode variables */
+        body.dark-mode {
+          --primary: #a259f7;
+          --primary-dark: #7c3aed;
+          --danger: #e11d48;
+          --success: #22c55e;
+          --bg: #181824;
+          --border: #23263a;
+          --text: #f3f4fa;
+          --muted: #b3b6c7;
+          --white: #23263a;
+          --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.30);
+        }
+        body.dark-mode {
+          background: var(--bg);
+          color: var(--text);
+          transition: background 0.4s, color 0.4s;
+        }
+        body.dark-mode .header {
+          background: var(--white);
+          border-bottom: 1px solid var(--border);
+        }
+        body.dark-mode .logo {
+          color: var(--primary);
+        }
+        body.dark-mode .products-section {
+          background: var(--white);
+          box-shadow: var(--shadow);
+        }
+        body.dark-mode .products-title {
+          color: var(--text);
+        }
+        body.dark-mode .add-product-btn {
+          background: var(--primary);
+          color: var(--text);
+        }
+        body.dark-mode .products-table {
+          background: var(--white);
+          border: 1px solid var(--border);
+        }
+        body.dark-mode .products-table th {
+          background: #23263a;
+          color: var(--muted);
+        }
+        body.dark-mode .products-table td {
+          border: 1px solid var(--border);
+          color: var(--text);
+        }
+        body.dark-mode .products-filters input,
+        body.dark-mode .products-filters select {
+          background: #23263a;
+          color: var(--text);
+          border: 1px solid var(--border);
+        }
+        body.dark-mode .search-icon {
+          filter: invert(1) brightness(1.5);
+        }
+        body.dark-mode .pagination span,
+        body.dark-mode .pagination a {
+          color: var(--primary);
+        }
+        body.dark-mode .products-header-actions {
+          background: transparent;
+        }
+        body.dark-mode .add-product-btn:before {
+          background: rgba(162,89,247,0.2);
+        }
+          /* Dark mode for add/update product panels */
+    body.dark-mode .add-product-panel,
+    body.dark-mode .update-product-panel {
+      background: var(--white);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    body.dark-mode .add-product-form input[type="text"],
+    body.dark-mode .add-product-form input[type="number"],
+    body.dark-mode .add-product-form input[type="file"],
+    body.dark-mode .add-product-form textarea,
+    body.dark-mode .add-product-form select,
+    body.dark-mode .update-product-form input[type="text"],
+    body.dark-mode .update-product-form input[type="number"],
+    body.dark-mode .update-product-form input[type="file"],
+    body.dark-mode .update-product-form textarea,
+    body.dark-mode .update-product-form select {
+      background: #23263a;
+      color: #fff;
+      border: 1.5px solid #fff;
+      transition: background 0.3s, color 0.3s, border 0.3s;
+    }
+    body.dark-mode .add-product-form input[type="file"]::-webkit-file-upload-button,
+    body.dark-mode .update-product-form input[type="file"]::-webkit-file-upload-button {
+      background: #23263a;
+      color: #fff;
+      border: grey;
+    }
+    body.dark-mode .add-product-form input:focus,
+    body.dark-mode .add-product-form textarea:focus,
+    body.dark-mode .add-product-form select:focus,
+    body.dark-mode .update-product-form input:focus,
+    body.dark-mode .update-product-form textarea:focus,
+    body.dark-mode .update-product-form select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+      /* Dark mode: search input wrapper white border */
+    body.dark-mode .search-input-wrapper {
+      border: 1.5px solid #fff;
+      border-radius: 7px;
+      padding: 2px;
+      background: #23263a;
+      transition: border 0.3s, background 0.3s;
+    }
+
+   
+
+  .add-product-btn {
+      width: 220px !important;
+      min-width: 180px !important;
+      max-width: 180px ;margin-right: 40px !important;
+      height: 48px !important;
+      box-sizing: border-box;
+      transition: none !important;
+    }
     :root {
       --primary: #a259f7;
       --primary-dark: #7c3aed;
@@ -55,7 +178,32 @@
         margin-left: 60px;
     }
    
+     /* Shift switch icon and add button when panel is active */
+    .products-section.panel-active .products-header-actions {
+      gap: 30px !important;
+      transition: gap 0.4s cubic-bezier(.23,1.02,.32,1);
+    }
+    .products-section.panel-active .add-product-btn {
+      width: auto !important;
+      min-width: 180px !important;
+      height: 48px !important;
+      transition: none;
+    }
+    .products-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-left: auto;
+      transition: gap 0.4s cubic-bezier(.23,1.02,.32,1);
+    }
+    @media (max-width: 900px) {
+      .products-section.panel-active .products-header-actions {
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
 
+    }
     .main-content {
       display: flex;
       flex: 1 1 auto;
@@ -209,9 +357,9 @@
      
     }
     .grid{
-        width: 35px;
+        width: 45px;
         margin-top: 5px;
-        margin-left: 800px;
+        margin-left: 1000px;
     }
     .products-table td .edit, .products-table td .delete {
       cursor: pointer;
@@ -383,7 +531,7 @@
     .add-product-form select:not([value=""]) + label {
       top: -14px;
       left: 10px;
-      background: #fff;
+      background: transparent;
       color: var(--primary);
       font-size: 0.92rem;
       padding: 0 6px;
@@ -679,25 +827,12 @@
         opacity: 0;
       }
     }
-    .custom-file-label {
-  display: inline-block;
-  padding: 8px 18px;
-  border: 2px solid #a259f7;
-  border-radius: 5px;
-  color: #a259f7;
-  background: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 8px;
-  transition: border-color 0.2s;
-}
-.custom-file-label:hover {
-  border-color: #7c3aed;
-  color: #7c3aed;
-}
-.custom-file-input {
-  display: none;
-}
+   
+ .switch-icon-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+    }
   </style>
 </head>
 <body>
@@ -707,11 +842,11 @@
   </div>
   <div class="main-content">
     <div class="products-section" id="productsSection">
-      <div class="products-header">
+    <div class="products-header">
         <div class="products-title">All Products</div>
-        <div><img class="grid" src="icons/grid.png"></div>
-  <button class="add-product-btn" id="showAddProduct"><img src="icons/add.png" class="add-icon" alt="Add"> Add New Product</button>
-   
+          <div class="switch-icon-wrapper"><img class="grid" id="modeSwitchIcon" src="icons/switch.png" style="cursor:pointer;">
+        <button class="add-product-btn" id="showAddProduct"><img src="icons/add.png" class="add-icon" alt="Add"> Add New Product</button>
+      </div>
       </div>
       <div class="products-filters">
         <div class="search-input-wrapper">
@@ -720,6 +855,24 @@
         </div>
     
   <script>
+    // Add/remove panel-active class based on panel state
+    function updatePanelActiveClass() {
+      const productsSection = document.getElementById('productsSection');
+      const addPanel = document.getElementById('addProductPanel');
+      const updatePanel = document.getElementById('updateProductPanel');
+      if ((addPanel && addPanel.classList.contains('active')) || (updatePanel && updatePanel.classList.contains('active'))) {
+        productsSection.classList.add('panel-active');
+      } else {
+        productsSection.classList.remove('panel-active');
+      }
+    }
+    document.getElementById('showAddProduct').addEventListener('click', updatePanelActiveClass);
+    document.getElementById('cancelAddProduct').addEventListener('click', updatePanelActiveClass);
+    document.getElementById('cancelUpdateProduct').addEventListener('click', updatePanelActiveClass);
+    // Also call after showing update panel
+    document.getElementById('productsTableBody').addEventListener('click', function(e) {
+      setTimeout(updatePanelActiveClass, 400);
+    });
     // ...existing code...
     // Search icon toggle
     const searchInput = document.getElementById('searchProducts');
@@ -766,6 +919,7 @@
         let currentPage = 1;
   const productsPerPage = 5;
         function renderProductsTable(products) {
+          // ...existing code...
           const tbody = document.getElementById('productsTableBody');
           const totalPages = Math.ceil(products.length / productsPerPage) || 1;
           if (currentPage > totalPages) currentPage = totalPages;
@@ -790,7 +944,7 @@
               <td>$${parseFloat(prod.price).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td class="stock">${prod.stock}</td>
               <td>
-                <button class="edit" title="Edit"><img src="icons/fountain-pen.png"></button>
+                <button class="edit" title="Edit"><img src="${document.body.classList.contains('dark-mode') ? 'icons/fountain-pen-white.png' : 'icons/fountain-pen.png'}"></button>
                 <button class="delete" title="Delete"><img src="icons/trash-bin.png"></button>
               </td>
             </tr>
@@ -966,6 +1120,32 @@
     </div>
   </div>
   <script>
+      // Dark mode toggle logic
+  const modeSwitchIcon = document.getElementById('modeSwitchIcon');
+  let darkMode = false;
+  const logoImg = document.querySelector('.logo-img');
+        // Swap edit icon for dark mode
+        function updateEditIconsForMode(darkMode) {
+          document.querySelectorAll('.edit img').forEach(function(img) {
+            img.src = darkMode ? 'icons/fountain-pen-white.png' : 'icons/fountain-pen.png';
+          });
+        }
+        modeSwitchIcon.addEventListener('click', function() {
+          darkMode = !darkMode;
+          document.body.classList.toggle('dark-mode', darkMode);
+          modeSwitchIcon.src = darkMode ? 'icons/switch (1).png' : 'icons/switch.png';
+          updateEditIconsForMode(darkMode);
+          if (logoImg) {
+            logoImg.src = darkMode ? 'icons/Dark-mode logo.png' : 'icons/FullLogo_NoBuffer.png';
+          }
+        });
+        // On page load, set correct edit icon for mode
+        document.addEventListener('DOMContentLoaded', function() {
+          updateEditIconsForMode(document.body.classList.contains('dark-mode'));
+          if (logoImg) {
+            logoImg.src = document.body.classList.contains('dark-mode') ? 'icons/Dark-mode logo.png' : 'icons/FullLogo_NoBuffer.png';
+          }
+        });
     // Show Update Product Panel with fade-in and populate fields
     document.getElementById('productsTableBody').addEventListener('click', function(e) {
       const btn = e.target.closest('.edit');

@@ -1,7 +1,8 @@
 <?php
+header('Content-Type: application/json');
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = '';
 $dbname = "ecommerce_system";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
@@ -59,11 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(["status" => "error", "field" => "image", "message" => "Invalid image type."]);
             exit;
         }
-        $image_path = 'uploads/' . uniqid('client_', true) . '.' . $ext;
-        if (!move_uploaded_file($image['tmp_name'], $image_path)) {
+        $upload_dir = __DIR__ . '/../uploads/';
+        if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+        $image_filename = uniqid('client_', true) . '.' . $ext;
+        $full_image_path = $upload_dir . $image_filename;
+        if (!move_uploaded_file($image['tmp_name'], $full_image_path)) {
             echo json_encode(["status" => "error", "field" => "image", "message" => "Image upload failed."]);
             exit;
         }
+        $image_path = 'uploads/' . $image_filename;
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
