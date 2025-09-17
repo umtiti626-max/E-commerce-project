@@ -79,6 +79,7 @@
       background: var(--white);
       color: var(--text);
       box-shadow: var(--shadow);
+      border-left-color: rgb(82, 80, 80);
     }
     body.dark-mode .add-product-form input[type="text"],
     body.dark-mode .add-product-form input[type="number"],
@@ -92,7 +93,7 @@
     body.dark-mode .update-product-form select {
       background: #23263a;
       color: #fff;
-      border: 1.5px solid #fff;
+      border: 1.5px solid #dad9d9;
       transition: background 0.3s, color 0.3s, border 0.3s;
     }
     body.dark-mode .add-product-form input[type="file"]::-webkit-file-upload-button,
@@ -778,11 +779,11 @@
       pointer-events: none;
       transform: translateX(60px) scale(0.98);
       transition: opacity 0.5s cubic-bezier(.23,1.02,.32,1), transform 0.5s cubic-bezier(.23,1.02,.32,1), width 0.5s cubic-bezier(.23,1.02,.32,1), flex 0.5s cubic-bezier(.23,1.02,.32,1);
-      position: relative;
+      position: absolute;
       z-index: 2;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100%;
+  
     }
     .update-product-panel.active {
        opacity: 1;
@@ -790,6 +791,7 @@
       transform: translateX(0) scale(1);
       animation: slideInPanel 0.7s cubic-bezier(.23,1.02,.32,1);
       width: 100%;
+      height: 100%;
       max-width: 420px;
       flex: 0 0 420px;
     }
@@ -1136,14 +1138,14 @@
           modeSwitchIcon.src = darkMode ? 'icons/switch (1).png' : 'icons/switch.png';
           updateEditIconsForMode(darkMode);
           if (logoImg) {
-            logoImg.src = darkMode ? 'icons/Dark-mode logo.png' : 'icons/FullLogo_NoBuffer.png';
+            logoImg.src = darkMode ? 'icons/White logo.png' : 'icons/FullLogo_NoBuffer.png';
           }
         });
         // On page load, set correct edit icon for mode
         document.addEventListener('DOMContentLoaded', function() {
           updateEditIconsForMode(document.body.classList.contains('dark-mode'));
           if (logoImg) {
-            logoImg.src = document.body.classList.contains('dark-mode') ? 'icons/Dark-mode logo.png' : 'icons/FullLogo_NoBuffer.png';
+            logoImg.src = document.body.classList.contains('dark-mode') ? 'icons/White logo.png' : 'icons/FullLogo_NoBuffer.png';
           }
         });
     // Show Update Product Panel with fade-in and populate fields
@@ -1154,16 +1156,18 @@
       const row = btn.closest('tr');
       if (!row) return;
       const cells = row.querySelectorAll('td');
-  // Set product_id in hidden input
-  document.getElementById('updateProductId').value = cells[0].textContent.trim();
-  document.getElementById('updateProductName').value = cells[2].textContent.trim();
-  document.getElementById('updateProductDesc').value = cells[3].textContent.trim();
-    document.getElementById('updateProductSpecs').value = cells[4].textContent.trim();
-    document.getElementById('updateProductCategory').value = cells[5].textContent.trim();
-    document.getElementById('updateProductPrice').value = parseFloat(cells[6].textContent.replace('$','').replace(/,/g,''));
+      // Set product_id in hidden input
+      document.getElementById('updateProductId').value = cells[0].textContent.trim();
+      document.getElementById('updateProductName').value = cells[2].textContent.trim();
+      document.getElementById('updateProductDesc').value = cells[3].textContent.trim();
+      document.getElementById('updateProductSpecs').value = cells[4].textContent.trim();
+      document.getElementById('updateProductCategory').value = cells[5].textContent.trim();
+      document.getElementById('updateProductPrice').value = parseFloat(cells[6].textContent.replace('$','').replace(/,/g,''));
       // Hide add panel, show update panel
       document.getElementById('addProductPanel').classList.remove('active');
+      document.getElementById('addProductPanel').style.display = 'none';
       document.getElementById('updateProductPanel').classList.add('active');
+      document.getElementById('updateProductPanel').style.display = 'flex';
       document.getElementById('productsSection').style.width = '80%';
       document.getElementById('panelContainer').style.width = '20%';
       document.getElementById('productsSection').style.flex = '1 1 0';
@@ -1173,9 +1177,9 @@
     });
     document.getElementById('cancelUpdateProduct').addEventListener('click', function() {
       document.getElementById('updateProductPanel').classList.remove('active');
+      document.getElementById('updateProductPanel').style.display = 'none';
       document.getElementById('productsSection').style.width = '100%';
       document.getElementById('panelContainer').style.width = '0%';
-      updateProductPanel.style.display = 'flex';
       setTimeout(()=>{ productsSection.style.flex = '1 1 0'; }, 500);
     });
     // Prevent update form submit (demo only)
