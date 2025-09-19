@@ -5,6 +5,7 @@ header('Content-Type: application/json');
 // Database connection
 $host = 'localhost';
 $user = 'root';
+$port= 3306;
 $pass = '';
 $db = 'ecommerce_system';
 $conn = new mysqli($host, $user, $pass, $db);
