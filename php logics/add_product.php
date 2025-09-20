@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 $host = 'localhost';
 $user = 'root';
 $port= 3306;
-$pass = '';
+$pass = '0000';
 $db = 'ecommerce_system';
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {

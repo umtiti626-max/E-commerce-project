@@ -116,92 +116,102 @@
       overflow-x: hidden;
     }
     .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 65px;
-      width: 100%;
-      background: var(--white);
-      margin-top: 30px;
-      padding: 0 32px;
-      border-bottom: 1px solid var(--border);
-      position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  height: 65px;
+  width: 100%;
+  background: var(--white);
+  margin-top: 30px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
     }
-      .mobile-nav-dropdown {
-        display: none;
-        position: absolute;
-        top: 100%;
+     .mobile-nav-dropdown {
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100vw;
         background: var(--white);
         box-shadow: 0 4px 16px rgba(162,89,247,0.08);
         border-bottom: 1px solid var(--border);
         z-index: 100;
-        transition: max-height 0.35s cubic-bezier(.4,0,.2,1), opacity 0.3s;
         max-height: 0;
         opacity: 0;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+        margin-top: 80px;
       }
       .mobile-nav-dropdown.open {
-        display: flex;
-        max-height: 400px;
+        max-height: 200px;
         opacity: 1;
-        transition: max-height 0.35s cubic-bezier(.4,0,.2,1), opacity 0.3s;
+        box-shadow: 0 8px 24px rgba(162,89,247,0.12);
       }
       .mobile-nav-links {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 24px;
-        padding: 24px 0 24px 0;
+        padding: 32px 0 24px 0;
         width: 100%;
       }
       .mobile-nav-links a {
         color: var(--primary);
-        font-size: 1.2rem;
+        font-size: 1rem;
         text-decoration: none;
-        font-weight: 600;
+        position: relative;
         transition: color 0.2s;
+        text-align: center;
+        letter-spacing: 0.5px;
+        padding: 8px 0;
       }
       .mobile-nav-links a::before,
-    .mobile-nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -2px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      border-radius: 2px;
-      opacity: 0;
-      transform: scaleX(0);
-      transition: opacity 0.3s, transform 0.3s;
-      z-index: 1;
-    }
-    .mobile-nav-links a:hover::before {
-      opacity: 1;
-      transform: scaleX(.9);
-    }
-    .mobile-nav-links a:focus::before {
-      opacity: 1;
-      transform: scaleX(.9);
-    }
+      .mobile-nav-links a::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 60%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 2px;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 1;
+      }
+      .mobile-nav-links a::before {
+        top: 0;
+      }
+      .mobile-nav-links a::after {
+        bottom: 0;
+      }
+      .mobile-nav-links a:hover::before,
+      .mobile-nav-links a:focus::before,
+      .mobile-nav-links a:hover::after,
+      .mobile-nav-links a:focus::after {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1);
+      }
       @media (max-width: 430px) {
         .mobile-nav-dropdown {
-          display: none;
+          display: flex;
         }
-        .mobile-nav-dropdown.open {
-          display: block;
-        }
-    }
-     
+      }
     .header .more-icon {
+  transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+  transform: rotate(360deg);
+  transform: rotate(-360deg);
       display: none;
       width: 32px;
       height: 32px;
       object-fit: contain;
       margin-right: 10px;
+      margin-top: 2px;
     }
     .header .more-icon {
       display: none;
@@ -552,33 +562,43 @@
         font-size: 1.5rem;
       }
     }
-  
+  @media (min-width: 431px) {
+      #headerCloseIcon {
+        display: none !important;
+      }
+      #mobileMenuBtn {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="logo"><img src="icons/FullLogo_NoBuffer.png"></div>
-    <div class="nav">
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">Shipping</a>
-      <a href="#">Contacts</a>
+    <div class="logo" style="flex:0 0 auto;"><img src="icons/FullLogo_NoBuffer.png"></div>
+    <div class="nav" style="flex:1 1 auto;display:flex;justify-content:center;gap:32px;">
+      <a href="#">HOME</a>
+      <a href="#">PRODUCTS</a>
+      <a href="#">SHIPPING</a>
+      <a href="#">CONTACTS</a>
     </div>
-    <div class="profile"><img src="icons/user-purple.png"></div>
-      <img src="icons/more-purple.png" class="more-icon" alt="More" id="mobileMenuBtn">
+    <div class="profile" style="flex:0 0 auto;"><img src="icons/user-purple.png"></div>
+    <span style="position:relative;display:inline-block;flex:0 0 auto;min-width:32px;height:32px;">
+      <img src="icons/more-purple.png" class="more-icon" alt="More" id="mobileMenuBtn" style="display:block;position:absolute;top:0;right:0;">
+      <img src="icons/close.png" class="more-icon" alt="Close" id="headerCloseIcon" style="display:none;position:absolute;top:0;right:0;">
+    </span>
       <div class="mobile-nav-dropdown" id="mobileNavDropdown">
         <div class="mobile-nav-links">
-          <a href="#">Home</a>
-          <a href="#">Products</a>
-          <a href="#">Shipping</a>
-          <a href="#">Contacts</a>
+          <a href="#">HOME</a>
+      <a href="#">PRODUCTS</a>
+      <a href="#">SHIPPING</a>
+      <a href="#">CONTACTS</a>
         </div>
       </div>
   </div>
   <div class="main-content">
     <div class="title">Finalize Your Order</div>
     <div class="card">
-      <div class="section-title">Select Products for Shipping</div>
+      <div class="section-title">Select  a Product for Shipping</div>
       <div class="products-list" id="productsList">
         <!-- Products will be rendered by JS -->
       </div>
@@ -626,24 +646,52 @@
         image: "Smartphones/Google Pixel 9.jpg"
       }
     ];
-      // Mobile nav dropdown logic
+      // Mobile nav dropdown logic with immediate icon switch and rotation
       document.addEventListener('DOMContentLoaded', function() {
         var mobileMenuBtn = document.getElementById('mobileMenuBtn');
         var mobileNavDropdown = document.getElementById('mobileNavDropdown');
+        var closeIcon = document.getElementById('headerCloseIcon');
         var isOpen = false;
-        if (mobileMenuBtn && mobileNavDropdown) {
+        function openDropdown() {
+          mobileNavDropdown.classList.add('open');
+          mobileMenuBtn.classList.remove('rotating-left');
+          mobileMenuBtn.classList.add('rotating-right');
+          mobileMenuBtn.style.display = 'none';
+          closeIcon.style.display = 'block';
+          closeIcon.classList.remove('rotating-left');
+          closeIcon.classList.add('rotating-right');
+        }
+        function closeDropdown() {
+          mobileNavDropdown.classList.remove('open');
+          closeIcon.classList.remove('rotating-right');
+          closeIcon.classList.add('rotating-left');
+          closeIcon.style.display = 'none';
+          mobileMenuBtn.style.display = 'block';
+          mobileMenuBtn.classList.remove('rotating-right');
+          mobileMenuBtn.classList.add('rotating-left');
+          setTimeout(function() {
+            mobileMenuBtn.classList.remove('rotating-left');
+            closeIcon.classList.remove('rotating-left');
+          }, 500);
+        }
+        if (mobileMenuBtn && mobileNavDropdown && closeIcon) {
           mobileMenuBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            isOpen = !isOpen;
+            if (!isOpen) {
+              openDropdown();
+              isOpen = true;
+            }
+          });
+          closeIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
             if (isOpen) {
-              mobileNavDropdown.classList.add('open');
-            } else {
-              mobileNavDropdown.classList.remove('open');
+              closeDropdown();
+              isOpen = false;
             }
           });
           document.body.addEventListener('click', function(e) {
-            if (isOpen && !mobileNavDropdown.contains(e.target) && e.target !== mobileMenuBtn) {
-              mobileNavDropdown.classList.remove('open');
+            if (isOpen && !mobileNavDropdown.contains(e.target) && e.target !== mobileMenuBtn && e.target !== closeIcon) {
+              closeDropdown();
               isOpen = false;
             }
           });
@@ -687,16 +735,22 @@
       const product = products.find(p => p.id === selectedProductId);
       const qty = quantities[selectedProductId];
       const subtotal = product.price * qty;
-      const vat = subtotal * 0.15;
+      const vat = subtotal * 0.01;
       const total = subtotal + vat;
-      orderList.innerHTML = ` <li>${product.name} <span class="qty">x ${qty}</span></li>`;
+      orderList.innerHTML = `
+        <li style="display:flex;align-items:center;gap:12px;">
+          <img src="${product.image}" alt="${product.name}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;border:1px solid #eee;">
+          <span>${product.name}</span>
+          <span class="qty">x ${qty}</span>
+        </li>
+      `;
       summaryTable.innerHTML = `
         <tr>
           <td class="label">Subtotal</td>
           <td>$${subtotal.toFixed(2)}</td>
         </tr>
         <tr>
-          <td class="label">VAT (15%)</td>
+          <td class="label">VAT (1%)</td>
           <td>$${vat.toFixed(2)}</td>
         </tr>
         <tr>
