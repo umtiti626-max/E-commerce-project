@@ -598,6 +598,47 @@
         margin-top: 20px;
        
     }
+   
+      .footer {
+       @media(max-width: 390px){  
+      flex-direction: row;
+      height: 200px;
+      padding: 18px 0;
+      align-items: flex-start;
+    
+    }
+    .footer-logo-section {
+      flex: 1;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      display: flex;
+      flex-direction: column;
+      margin-left: 18px;
+    }
+    .footer-logo-section img {
+     
+      margin-bottom: 4px !important;
+      width: 150px;
+      margin-top: 20px;
+    }
+    .footer-tagline {
+      font-size: 0.85rem !important;
+      text-align: left !important;
+      max-width: 220px;
+    }
+    .footer-nav {
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: flex-start !important;
+      gap: 10px !important;
+      margin-left: -90px;
+    }
+    .footer-nav a {
+      font-size: 0.85rem !important;
+      text-align: right;
+    }
+  }
+    
     .share-btn img{
         width: 30px;
     }
