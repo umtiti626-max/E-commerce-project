@@ -6,7 +6,7 @@
   <title>Finalize Your Order</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    @media (max-width: 430px) {
+    @media (max-width: 530px) {
       .desktop-icons {
         display: none !important;
       }
@@ -22,7 +22,7 @@
       --accent: #b794f4;
       --danger: #e11d48;
     }
-    @media (max-width: 430px) {
+    @media (max-width: 530px) {
       .desktop-nav {
         display: none !important;
       }
@@ -41,7 +41,7 @@
         margin-top: 0;
       }
     }
-      @media (max-width: 430px) {
+      @media (max-width: 530px) {
         .main-content {
           padding: 24px 12px 0 12px;
           box-sizing: border-box;
@@ -220,7 +220,7 @@
         opacity: 1;
         transform: translateX(-50%) scaleX(1);
       }
-      @media (max-width: 430px) {
+      @media (max-width: 530px) {
         .mobile-nav-dropdown {
           display: flex;
         }
@@ -243,7 +243,7 @@
       height: 32px;
       object-fit: contain;
     }
-    @media (max-width: 430px) {
+    @media (max-width: 530px) {
       .nav, .profile {
         display: none !important;
       }
@@ -264,7 +264,7 @@
       }
     }
     
-     @media (max-width: 870px) {
+     @media (max-width: 988px) {
       .nav, .profile {
         display: none !important;
       }
@@ -551,7 +551,7 @@
       border-color: var(--primary);
     }
     .footer{
-  @media (max-width: 430px) {
+  @media (max-width: 530px) {
     .footer {
       flex-direction: row;
       height: 200px;
@@ -583,7 +583,7 @@
       align-items: flex-end !important;
       justify-content: flex-start !important;
       gap: 10px !important;
-      margin-left: -70px;
+     
     }
     .footer-nav a {
       font-size: 0.85rem !important;
@@ -599,46 +599,6 @@
        
     }
    
-      .footer {
-       @media(max-width: 390px){  
-      flex-direction: row;
-      height: 200px;
-      padding: 18px 0;
-      align-items: flex-start;
-    
-    }
-    .footer-logo-section {
-      flex: 1;
-      align-items: flex-start !important;
-      justify-content: flex-start !important;
-      display: flex;
-      flex-direction: column;
-      margin-left: 18px;
-    }
-    .footer-logo-section img {
-     
-      margin-bottom: 4px !important;
-      width: 150px;
-      margin-top: 20px;
-    }
-    .footer-tagline {
-      font-size: 0.85rem !important;
-      text-align: left !important;
-      max-width: 220px;
-    }
-    .footer-nav {
-      flex-direction: column !important;
-      align-items: flex-end !important;
-      justify-content: flex-start !important;
-      gap: 10px !important;
-      margin-left: -90px;
-    }
-    .footer-nav a {
-      font-size: 0.85rem !important;
-      text-align: right;
-    }
-  }
-    
     .share-btn img{
         width: 30px;
     }
@@ -683,16 +643,65 @@
       }
     }
     .footer {
-  display: flex;
-  width: 100%;
-  height: 150px;
-  min-height: 150px;
-  background: white;
-  margin-top: 70px;
-  align-items: center;
-  justify-content: space-evenly;
-  border-top: 1px solid #d1b3ff;
-  box-shadow: 0 -6px 18px 0 rgba(169, 106, 241, 0.18);
+      @media(max-width:778px ){
+    .footer {
+      flex-direction: row;
+      height: 200px;
+      padding: 18px 0;
+      align-items: flex-start;
+    
+    }
+    .footer-logo-section {
+      flex: 1;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      display: flex;
+      flex-direction: column;
+      margin-left: 18px;
+    }
+    .footer-logo-section img {
+     
+      margin-bottom: 4px !important;
+      width: 150px;
+      margin-top: 20px;
+    }
+    .footer-tagline {
+      font-size: 0.85rem !important;
+      text-align: left !important;
+      max-width: 220px;
+    }
+    .footer-nav {
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: flex-start !important;
+      gap: 10px !important;
+      
+    }
+    .footer-nav a {
+      font-size: 0.85rem !important;
+      text-align: right;
+    }
+  }
+        display: flex;
+        width: 100%;
+        height: 100px;
+        min-height: 100px;
+        background:#a259f7;
+        margin-top: 20px;
+       
+    }
+   
+   .footer {
+    display: flex;
+    width: 100%;
+    height: 150px;
+    min-height: 150px;
+    background: white;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-top: 1px solid #d1b3ff;
+    box-shadow: 0 -6px 18px 0 rgba(169, 106, 241, 0.18);
     border: 1px solid;
     border-bottom: none;
     border-left: none;
@@ -702,11 +711,13 @@
 }
 .footer-nav {
     display: flex;
-    flex-direction: row;
+    flex-direction: row !important;
     gap: 32px;
     justify-content: center;
     align-items: center;
-    margin-right: 200px;
+    margin-left: -100px;
+    margin-right: 20px;
+        
 }
 .footer-nav a {
     color: black;
@@ -719,6 +730,7 @@
 .footer-nav a:hover {
     color: #e9d8fd;
 }
+
   </style>
 </head>
 <body>

@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 $servername = "localhost";
 $username = "root";
 $port= 3306;
-$password = '0000';
+$password = '';
 $dbname = "ecommerce_system";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
