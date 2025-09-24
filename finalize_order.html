@@ -115,8 +115,12 @@
           margin-left: 20px;
           width: 100%;
         }
-        .share-actions{
-            margin-left: 15px;
+        
+        .share-btn{
+          width: 160px;
+          margin-left: 25px;
+          margin: 0px 15px;
+
         }
       }
     html, body {
@@ -730,7 +734,56 @@
 .footer-nav a:hover {
     color: #e9d8fd;
 }
-
+ .footer-social-section {
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0 32px 0;
+    margin-top: -10px;
+    box-shadow: 0 2px 12px rgba(162,89,247,0.07);
+    border:transparent;
+  }
+  .footer-social-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #0e0d0d;
+    margin-bottom: 18px;
+    letter-spacing: 0.1px;
+    text-shadow: 0 1px 8px #e9d8fd;
+    text-align: center;
+  }
+  .footer-social-icons {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  }
+  .footer-social-icons .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(162,89,247,0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid #fafbfc;
+  }
+  .footer-social-icons .social-icon:hover {
+    transform: scale(1.12) translateY(-2px);
+    box-shadow: 0 6px 18px rgba(162,89,247,0.18);
+    border-color: transparent;
+  }
+  .footer-social-icons .social-icon img {
+    width: 28px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 4px #e8dbff);
+    transition: filter 0.2s;
+  }
   </style>
 </head>
 <body>
@@ -743,24 +796,21 @@
       <a href="#">CONTACTS</a>
     </div>
     <div class="desktop-icons" style="display:flex;align-items:center;gap:8px; margin-right: 70px;">
-      <img src="icons/shopping-cart.png" alt="Cart" class="cart-icon" style="width:28px;height:28px;object-fit:contain;margin-right:35px;">
-      <img src="icons/user-purple.png" alt="User" class="profile-icon" style="width:28px;height:28px;object-fit:contain;">
+  <img src="icons/shopping-cart.png" alt="Cart" class="cart-icon" id="desktopCartIcon" style="width:28px;height:28px;object-fit:contain;margin-right:35px;cursor:pointer;">
+  <img src="icons/user-purple.png" alt="User" class="profile-icon" id="desktopUserIcon" style="width:28px;height:28px;object-fit:contain;cursor:pointer;">
     </div>
     <div class="mobile-icons" style="display:none;align-items:center;gap:18px;">
-      <img src="icons/shopping-cart.png" alt="Cart" class="cart-icon" style="width:28px;height:28px;object-fit:contain;margin-top: 5px; margin-right: 5px;">
-      <img src="icons/user-purple.png" alt="User" class="profile-icon" style="width:28px;height:28px;object-fit:contain;margin-right: 50px;">
+  <img src="icons/shopping-cart.png" alt="Cart" class="cart-icon" id="mobileCartIcon" style="width:28px;height:28px;object-fit:contain;margin-top: 5px; margin-right: 5px;cursor:pointer;">
+  <img src="icons/user-purple.png" alt="User" class="profile-icon" id="mobileUserIcon" style="width:28px;height:28px;object-fit:contain;margin-right: 50px;cursor:pointer;">
       <span style="position:relative;display:inline-block;min-width:32px;height:32px;">
-        <img src="icons/more-purple.png" class="more-icon" alt="More" id="mobileMenuBtn" style="display:block;position:absolute;top:0;right:0;">
-        <img src="icons/close.png" class="more-icon" alt="Close" id="headerCloseIcon" style="display:none;position:absolute;top:0;right:0;">
+  <img src="icons/more-purple.png" class="more-icon" alt="More" id="mobileMoreIcon" style="display:block;position:absolute;top:0;right:0;cursor:pointer;">
+  <img src="icons/close.png" class="more-icon" alt="Close" id="headerCloseIcon" style="display:none;position:absolute;top:0;right:0;cursor:pointer;">
       </span>
     </div>
    
       <div class="mobile-nav-dropdown" id="mobileNavDropdown">
-        <div class="mobile-nav-links">
-          <a href="#">HOME</a>
-      <a href="#">PRODUCTS</a>
-      <a href="#">SHIPPING</a>
-      <a href="#">CONTACTS</a>
+        <div class="mobile-nav-links" id="dropdownContent">
+          <!-- Dropdown content will be set by JS -->
         </div>
       </div>
   </div>
@@ -815,56 +865,98 @@
         image: "Smartphones/Google Pixel 9.jpg"
       }
     ];
-      // Mobile nav dropdown logic with immediate icon switch and rotation
+      // Unified dropdown logic for user, cart, and more icons with professional icon toggle
       document.addEventListener('DOMContentLoaded', function() {
-        var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        var mobileNavDropdown = document.getElementById('mobileNavDropdown');
-        var closeIcon = document.getElementById('headerCloseIcon');
-        var isOpen = false;
-        function openDropdown() {
+        const mobileNavDropdown = document.getElementById('mobileNavDropdown');
+        const dropdownContent = document.getElementById('dropdownContent');
+        const closeIcon = document.getElementById('headerCloseIcon');
+        // Desktop icons
+        const desktopCartIcon = document.getElementById('desktopCartIcon');
+        const desktopUserIcon = document.getElementById('desktopUserIcon');
+        // Mobile icons
+        const mobileCartIcon = document.getElementById('mobileCartIcon');
+        const mobileUserIcon = document.getElementById('mobileUserIcon');
+        const mobileMoreIcon = document.getElementById('mobileMoreIcon');
+        let currentDropdown = null;
+        // Dropdown contents
+        const navLinks = `
+          <a href="#">HOME</a>
+          <a href="#">PRODUCTS</a>
+          <a href="#">SHIPPING</a>
+          <a href="#">CONTACTS</a>
+        `;
+        const cartDropdown = `
+          <div style="width:100%;text-align:center;padding:24px 0;">
+            <strong style="color:var(--primary);font-size:1.1rem;">Your Cart</strong><br>
+            <span style="color:var(--muted);font-size:0.95rem;">No items in cart.</span>
+          </div>
+        `;
+        const userDropdown = `
+          <div style="width:100%;text-align:center;padding:24px 0;">
+            <strong style="color:var(--primary);font-size:1.1rem;">Account</strong><br>
+            <a href="#" style="color:var(--primary);display:block;margin:12px 0;">Profile</a>
+            <a href="#" style="color:var(--primary);display:block;margin:12px 0;">Orders</a>
+            <a href="#" style="color:var(--danger);display:block;margin:12px 0;">Logout</a>
+          </div>
+        `;
+        function toggleIcons(active) {
+          if (mobileMoreIcon) mobileMoreIcon.style.display = active ? 'none' : 'block';
+          if (closeIcon) closeIcon.style.display = active ? 'block' : 'none';
+        }
+        function showDropdown(type) {
+          let content = navLinks;
+          if (type === 'cart') content = cartDropdown;
+          if (type === 'user') content = userDropdown;
+          dropdownContent.innerHTML = content;
           mobileNavDropdown.classList.add('open');
-          mobileMenuBtn.classList.remove('rotating-left');
-          mobileMenuBtn.classList.add('rotating-right');
-          mobileMenuBtn.style.display = 'none';
-          closeIcon.style.display = 'block';
-          closeIcon.classList.remove('rotating-left');
-          closeIcon.classList.add('rotating-right');
+          toggleIcons(true);
+          currentDropdown = type;
         }
-        function closeDropdown() {
+        function hideDropdown() {
           mobileNavDropdown.classList.remove('open');
-          closeIcon.classList.remove('rotating-right');
-          closeIcon.classList.add('rotating-left');
-          closeIcon.style.display = 'none';
-          mobileMenuBtn.style.display = 'block';
-          mobileMenuBtn.classList.remove('rotating-right');
-          mobileMenuBtn.classList.add('rotating-left');
-          setTimeout(function() {
-            mobileMenuBtn.classList.remove('rotating-left');
-            closeIcon.classList.remove('rotating-left');
-          }, 500);
+          toggleIcons(false);
+          currentDropdown = null;
         }
-        if (mobileMenuBtn && mobileNavDropdown && closeIcon) {
-          mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (!isOpen) {
-              openDropdown();
-              isOpen = true;
-            }
-          });
-          closeIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (isOpen) {
-              closeDropdown();
-              isOpen = false;
-            }
-          });
-          document.body.addEventListener('click', function(e) {
-            if (isOpen && !mobileNavDropdown.contains(e.target) && e.target !== mobileMenuBtn && e.target !== closeIcon) {
-              closeDropdown();
-              isOpen = false;
-            }
-          });
-        }
+        // Desktop events
+        if (desktopCartIcon) desktopCartIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'cart') showDropdown('cart');
+          else hideDropdown();
+        });
+        if (desktopUserIcon) desktopUserIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'user') showDropdown('user');
+          else hideDropdown();
+        });
+        // Mobile events
+        if (mobileCartIcon) mobileCartIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'cart') showDropdown('cart');
+          else hideDropdown();
+        });
+        if (mobileUserIcon) mobileUserIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'user') showDropdown('user');
+          else hideDropdown();
+        });
+        if (mobileMoreIcon) mobileMoreIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'nav') showDropdown('nav');
+          else hideDropdown();
+        });
+        if (closeIcon) closeIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          hideDropdown();
+        });
+        document.body.addEventListener('click', function(e) {
+          if (currentDropdown && !mobileNavDropdown.contains(e.target) && e.target !== closeIcon &&
+            e.target !== desktopCartIcon && e.target !== desktopUserIcon &&
+            e.target !== mobileCartIcon && e.target !== mobileUserIcon && e.target !== mobileMoreIcon) {
+            hideDropdown();
+          }
+        });
+        // Initial state
+        toggleIcons(false);
       });
     let selectedProductId = null;
     let quantities = { 1: 1, 2: 1, 3: 1 };
@@ -983,7 +1075,21 @@
     <a href="#">CONTACTS</a>
   </nav>
 </div>
+<div class="footer-social-section">
+  <div class="footer-social-title">Visit our social media platforms</div>
+  <div class="footer-social-icons">
+    <a href="#" class="social-icon" title="Facebook">
+      <img src="icons/facebook-app-symbol.png" alt="Facebook">
+    </a>
+    <a href="#" class="social-icon" title="Instagram">
+      <img src="icons/instagram-purple.png" alt="Instagram">
+    </a>
+    <a href="#" class="social-icon" title="Twitter">
+      <img src="icons/twitter-purple.png" alt="Twitter">
+    </a>
   </div>
-  
+</div>
+ 
+</div>
 </body>
 </html>
