@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+  <link rel="stylesheet" href="header.css">
+  <style>
+    body, .header, .nav, .desktop-nav, .mobile-nav-links, .footer, .footer-nav, .footer-logo-section, .footer-tagline, .footer-social-title {
+      font-family: Calibri, Arial, sans-serif !important;
+    }
+  </style>
+  <style>
+    @media (max-width: 530px) {
+      .desktop-icons {
+        display: none !important;
+      }
+      .mobile-icons {
+        display: flex !important;
+      }
+    }
+    @media (min-width: 531px) {
+      .desktop-icons {
+        display: flex !important;
+      }
+      .mobile-icons {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+  <div class="logo" style="flex:0 0 auto;"><img src="../icons/FullLogo_NoBuffer.png"></div>
+  <div class="nav desktop-nav" style="flex:1 1 auto;display:flex;justify-content:center;gap:32px;">
+    <a href="#">HOME</a>
+    <a href="#">PRODUCTS</a>
+    <a href="#">SHIPPING</a>
+    <a href="#">CONTACTS</a>
+  </div>
+  <div class="desktop-icons" style="display:flex;align-items:center;gap:8px; margin-right: 70px;">
+    <img src="../icons/shopping-cart.png" alt="Cart" class="cart-icon" id="desktopCartIcon" style="width:28px;height:28px;object-fit:contain;margin-right:35px;cursor:pointer;">
+    <img src="../icons/user-purple.png" alt="User" class="profile-icon" id="desktopUserIcon" style="width:28px;height:28px;object-fit:contain;cursor:pointer;">
+  </div>
+  <div class="mobile-icons" style="display:none;align-items:center;gap:18px;">
+    <img src="../icons/shopping-cart.png" alt="Cart" class="cart-icon" id="mobileCartIcon" style="width:28px;height:28px;object-fit:contain;margin-top: 5px; margin-right: 5px;cursor:pointer;">
+    <img src="../icons/user-purple.png" alt="User" class="profile-icon" id="mobileUserIcon" style="width:28px;height:28px;object-fit:contain;margin-right: 50px;cursor:pointer;">
+    <span style="position:relative;display:inline-block;min-width:32px;height:32px;">
+      <img src="../icons/more-purple.png" class="more-icon" alt="More" id="mobileMoreIcon" style="display:block;position:absolute;top:0;right:0;cursor:pointer;">
+      <img src="../icons/close.png" class="more-icon" alt="Close" id="headerCloseIcon" style="display:none;position:absolute;top:0;right:0;cursor:pointer;">
+    </span>
+  </div>
+  <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+    <div class="mobile-nav-links" id="dropdownContent">
+      <!-- Dropdown content will be set by JS -->
+    </div>
+  </div>
+</div>
+<script>
+// Unified dropdown logic for user, cart, and more icons with professional icon toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileNavDropdown = document.getElementById('mobileNavDropdown');
+  const dropdownContent = document.getElementById('dropdownContent');
+  const closeIcon = document.getElementById('headerCloseIcon');
+  // Desktop icons
+  const desktopCartIcon = document.getElementById('desktopCartIcon');
+  const desktopUserIcon = document.getElementById('desktopUserIcon');
+  // Mobile icons
+  const mobileCartIcon = document.getElementById('mobileCartIcon');
+  const mobileUserIcon = document.getElementById('mobileUserIcon');
+  const mobileMoreIcon = document.getElementById('mobileMoreIcon');
+  let currentDropdown = null;
+  // Dropdown contents
+  const navLinks = `
+    <a href="#">HOME</a>
+    <a href="#">PRODUCTS</a>
+    <a href="#">SHIPPING</a>
+    <a href="#">CONTACTS</a>
+  `;
+  const cartDropdown = `
+    <div style="width:100%;text-align:center;padding:24px 0;">
+      <strong style="color:var(--primary);font-size:1.1rem;">Your Cart</strong><br><br>
+      <span style="color:var(--muted);font-size:0.95rem;">No items in cart.</span>
+    </div>
+  `;
+  const userDropdown = `
+    <div style="width:100%;text-align:center;padding:24px 0;">
+      <strong style="color:var(--primary);font-size:1.1rem;">Account</strong><br>
+      <a href="#" style="color:var(--primary);display:block;margin:5px 0;">Profile</a>
+      <a href="#" style="color:var(--primary);display:block;margin:5px 0;">Orders</a>
+      <a href="#" style="color:var(--danger);display:block;margin:5px 0;">Logout</a>
+    </div>
+  `;
+  function toggleIcons(active) {
+    if (mobileMoreIcon) mobileMoreIcon.style.display = active ? 'none' : 'block';
+    if (closeIcon) closeIcon.style.display = active ? 'block' : 'none';
+  }
+  function showDropdown(type) {
+    let content = navLinks;
+    if (type === 'cart') content = cartDropdown;
+    if (type === 'user') content = userDropdown;
+    dropdownContent.innerHTML = content;
+    mobileNavDropdown.classList.add('open');
+    toggleIcons(true);
+    currentDropdown = type;
+  }
+  function hideDropdown() {
+    mobileNavDropdown.classList.remove('open');
+    toggleIcons(false);
+    currentDropdown = null;
+  }
+  // Desktop events
+  if (desktopCartIcon) desktopCartIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentDropdown !== 'cart') showDropdown('cart');
+    else hideDropdown();
+  });
+  if (desktopUserIcon) desktopUserIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentDropdown !== 'user') showDropdown('user');
+    else hideDropdown();
+  });
+  // Mobile events
+  if (mobileCartIcon) mobileCartIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentDropdown !== 'cart') showDropdown('cart');
+    else hideDropdown();
+  });
+  if (mobileUserIcon) mobileUserIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentDropdown !== 'user') showDropdown('user');
+    else hideDropdown();
+  });
+  if (mobileMoreIcon) mobileMoreIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentDropdown !== 'nav') showDropdown('nav');
+    else hideDropdown();
+  });
+  if (closeIcon) closeIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    hideDropdown();
+  });
+  document.body.addEventListener('click', function(e) {
+    if (currentDropdown && !mobileNavDropdown.contains(e.target) && e.target !== closeIcon &&
+      e.target !== desktopCartIcon && e.target !== desktopUserIcon &&
+      e.target !== mobileCartIcon && e.target !== mobileUserIcon && e.target !== mobileMoreIcon) {
+      hideDropdown();
+    }
+  });
+  // Initial state
+  toggleIcons(false);
+});
+</script>
+</body>
+</html>
+<!-- Header section extracted from finalize_order.html -->
