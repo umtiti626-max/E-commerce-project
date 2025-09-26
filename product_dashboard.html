@@ -858,6 +858,21 @@
         </div>
     
   <script>
+    // Mobile redirection logic
+    (function() {
+      var mobilePage = 'product_catalogue_mobile.html';
+      var desktopPage = 'product_dashboard.html';
+      function handleRedirect() {
+        if (window.innerWidth <= 800 && !window.location.pathname.endsWith(mobilePage)) {
+          window.location.href = mobilePage;
+        }
+        if (window.innerWidth > 800 && window.location.pathname.endsWith(mobilePage)) {
+          window.location.href = desktopPage;
+        }
+      }
+      window.addEventListener('resize', handleRedirect);
+      window.addEventListener('DOMContentLoaded', handleRedirect);
+    })();
     // Add/remove panel-active class based on panel state
     function updatePanelActiveClass() {
       const productsSection = document.getElementById('productsSection');
