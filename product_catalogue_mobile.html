@@ -432,10 +432,10 @@
     .footer {
       display: flex;
       width: 100%;
-      height: 150px;
-      min-height: 150px;
+      height: 120px;
+      min-height: 120px;
       background: white;
-      margin-top: 10px;
+      margin-top: 1px;
       align-items: center;
       justify-content: space-evenly;
       border-top: 1px solid #d1b3ff;
@@ -447,25 +447,65 @@
       border-top-color:  transparent;
     }
     .footer-logo-section {
-    
-      align-items: flex-start !important;
-      justify-content: flex-start !important;
+      align-items: center !important;
+      justify-content: center !important;
       display: flex;
       flex-direction: column;
-      margin-left: 18px;
-      margin-bottom: none;
+      margin-left: 0;
+      margin-bottom: 0;
+      width: 100%;
     }
     .footer-logo-section img {
       margin-bottom: 4px !important;
       width: 150px;
       margin-top: 20px;
-      margin-left: 115px;
+      margin-left: 0;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
     }
     .footer-tagline {
       font-size: 0.85rem !important;
       text-align: center!important;
       max-width: 220px;
-      margin-left: 85px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    @media (max-width: 530px) {
+      .footer {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: auto !important;
+        padding: 18px 0 !important;
+      }
+      .footer-logo-section {
+        align-items: center !important;
+        justify-content: center !important;
+        margin-left: 0 !important;
+      }
+      .footer-logo-section img {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .footer-tagline {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+      }
+      .footer-nav {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      .footer-nav a {
+        font-size: 0.85rem !important;
+        text-align: center !important;
+      }
     }
     .footer-nav {
       display: flex;
@@ -636,9 +676,9 @@
     </form>
   </div>
   <div class="footer">
-    <div class="footer-logo-section" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
-      <div class="logo" style="flex:0 0 auto; margin-right: 300px;"><img src="icons/FullLogo_NoBuffer.png"></div>
-      <span class="footer-tagline" style="color:rgb(59, 59, 59);font-size:1rem;font-weight:400;text-align:center;line-height:1.4;">Your professional destination for<br>the latest electronic devices and smartphones</span>
+    <div class="footer-logo-section">
+      <div class="logo"><img src="icons/FullLogo_NoBuffer.png"></div>
+      <span class="footer-tagline">Your professional destination for<br>the latest electronic devices and smartphones</span>
     </div>
   </div>
   </div>
