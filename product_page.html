@@ -4,13 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="/styles/product.css">
     <link rel="stylesheet" href="/styles/productHeader.css">
+=======
+    <link rel="stylesheet" href="styles/product.css">
+    <style>
+        .product-header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+        .searchIcon{
+            width: 30px;
+            height: 30px;
+            position: relative;
+            left: -40px;
+        }
+        .search{
+            height: 40px;
+            width: 50%;
+            border: none;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5),
+                -5px -5px 5px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            padding: 20px;
+        }
+        .search:hover{
+            cursor: pointer;
+        }
+        .search:active{
+            border: 1px solid #4f2cc8;
+        }
+        h4{
+            font-size: 18px;
+            margin: 10px;
+        }
+        .category{
+            height: 30px;
+            width: 15%;
+            font-weight: bold;
+            padding-left: 10px;
+        }
+        
+
+        /*===================================================*/
+        
+    </style>
+>>>>>>> 8e9a7f7c1c4d09be3346f1e88a769be479ef3efe
 </head>
 <body>
     <nav class="product-header">
         <input class="search" type="search" name="search" id="search" placeholder="search">
-        <img class="searchIcon" src="/icons/search.png" alt="search">
+        <img class="searchIcon" src="icons/search.png" alt="search">
         <h4>Category:</h4>
         <select class="category" name="Category" id="filter">
             <option value="iphone">Iphone</option>
