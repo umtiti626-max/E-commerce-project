@@ -1,0 +1,92 @@
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+  color: #333;
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+}
+.logo { font-size: 1.5rem; font-weight: bold; }
+.search-wrap { display: flex; }
+.search-wrap input {
+  padding: 8px; border: none; border-radius: 5px 0 0 5px;
+}
+.search-wrap button {
+  padding: 8px 12px; border: none; background: #2563eb; color: white;
+  border-radius: 0 5px 5px 0; cursor: pointer;
+}
+
+/* Layout */
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.sidebar ul { list-style: none; margin-top: 10px; }
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: none;
+  background: #e5e7eb;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.sidebar button:hover { background: #d1d5db; }
+
+/* Products */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+  gap: 20px;
+}
+.product-card {
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+.product-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+.product-media img { max-height: 100%; max-width: 100%; }
+.p-name { font-size: 1rem; margin-top: 10px; }
+.p-spec { font-size: 0.9rem; color: #666; }
+.p-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.p-price { font-weight: bold; color: #2563eb; }
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  background: #f3f4f6;
+}
