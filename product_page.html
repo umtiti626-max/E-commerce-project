@@ -5,50 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/styles/product.css">
-    <style>
-        .product-header{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 100px;
-            margin-bottom: 100px;
-        }
-        .searchIcon{
-            width: 30px;
-            height: 30px;
-            position: relative;
-            left: -40px;
-        }
-        .search{
-            height: 40px;
-            width: 50%;
-            border: none;
-            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5),
-                -5px -5px 5px rgba(0, 0, 0, 0.2);
-            font-size: 18px;
-            padding: 20px;
-        }
-        .search:hover{
-            cursor: pointer;
-        }
-        .search:active{
-            border: 1px solid #4f2cc8;
-        }
-        h4{
-            font-size: 18px;
-            margin: 10px;
-        }
-        .category{
-            height: 30px;
-            width: 15%;
-            font-weight: bold;
-            padding-left: 10px;
-        }
-        //
-
-        /*===================================================*/
-        
-    </style>
+    <link rel="stylesheet" href="/styles/productHeader.css">
 </head>
 <body>
     <nav class="product-header">
@@ -61,6 +18,18 @@
             <option value="googlePixel">Google Pixel</option>
         </select>
     </nav>
+    <div class="select">
+        <ul class="category-phone">
+            <li>Default</li>
+            <li>Iphone</li>
+            <li>Samsung</li>
+            <li>Infinix</li>
+            <li>Tecno</li>
+            <li>Google Pixel</li>
+            <li>Ipads</li>
+            <li>Hawei</li>
+        </ul>
+    </div>
      <div class="main">
       <div class="products-grid js-product-grid">
         
