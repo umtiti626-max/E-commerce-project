@@ -6,6 +6,94 @@
   <title>Product Catalogue Mobile</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+
+    .panel-abs.dark-mode {
+      background: #232336 !important;
+      color: #f3f3f3 !important;
+    }
+    .add-product-form.dark-mode, .update-product-form.dark-mode {
+      background: #232336 !important;
+      color: #f3f3f3 !important;
+      box-shadow: none !important;
+    }
+    .add-product-title.dark-mode {
+      color: #f3f3f3 !important;
+    }
+    .form-group.dark-mode label {
+      color: #f3f3f3 !important;
+    }
+    .add-product-form input.dark-mode,
+    .add-product-form textarea.dark-mode,
+    .update-product-form input.dark-mode,
+    .update-product-form textarea.dark-mode {
+      background: #232336 !important;
+      color: #f3f3f3 !important;
+      border: 1px solid #444 !important;
+    }
+
+     .add-product-form input.dark-mode:focus,
+    .add-product-form textarea.dark-mode:focus,
+    .update-product-form input.dark-mode:focus,
+    .update-product-form textarea.dark-mode:focus {
+      border: 2px solid #a259ff !important;
+      outline: none !important;
+    }
+ 
+    body.dark-mode {
+      background: #181824 !important;
+      color: #f3f3f3 !important;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      transition: background 0.3s;
+    }
+    .header.dark-mode {
+      background: #232336 !important;
+      color: #f3f3f3 !important;
+      border-bottom-color:  #292828;
+    }
+    .footer {
+      transition: background 0.3s;
+    }
+    .footer.dark-mode {
+      background: #232336 !important;
+      color: #f3f3f3 !important;
+    }
+    .footer-logo-img.dark-mode {
+      filter: none;
+    }
+    .logo-img.dark-mode {
+      filter: none;
+    }
+    .main-content.dark-mode {
+      background: transparent !important;
+      color: #f3f3f3 !important;
+    }
+    .catalogue-grid.dark-mode {
+      background: transparent !important;
+     
+    }
+    .catalogue-item.dark-mode {
+      background: transparent !important;
+       border: 1px solid #3b3b3b;
+     
+      color: #f3f3f3 !important;
+    }
+    .catalogue-name.dark-mode {
+      color: #fff !important;
+    }
+    .catalogue-price.dark-mode {
+      color: #a259ff !important;
+    }
+    .products-filters input.dark-mode, .products-filters select.dark-mode {
+      background: #232336 !important;
+      color: #f3f3f3 !important;
+      border: 1px solid #444 !important;
+    }
+    .search-icon.dark-mode {
+      filter: invert(1);
+    }
+
     :root {
       --primary: #a259f7;
       --primary-dark: #7c3aed;
@@ -224,7 +312,12 @@
       object-fit: contain;
       transition: width 0.2s, height 0.2s;
     }
-    
+    .categoryStockInfo.dark-mode {
+      background: transparent !important;
+      border: 1.5px solid #fff !important;
+      color: #fff !important;
+    }
+   
     .catalogue-info {
       margin-top: 6px;
       text-align: center;
@@ -432,8 +525,8 @@
     .footer {
       display: flex;
       width: 100%;
-      height: 120px;
-      min-height: 120px;
+      height: 100px;
+      min-height: 100px;
       background: white;
       margin-top: 1px;
       align-items: center;
@@ -478,7 +571,7 @@
         align-items: center !important;
         justify-content: center !important;
         height: auto !important;
-        padding: 18px 0 !important;
+        padding: 8px 0 !important;
       }
       .footer-logo-section {
         align-items: center !important;
@@ -581,7 +674,7 @@
 </head>
 <body>
   <div class="header">
-    <div class="logo"><img class="logo-img" src="icons/FullLogo_NoBuffer.png" style="height:32px;"></div>
+  <div class="logo"><img class="logo-img" src="icons/FullLogo_NoBuffer.png" style="height:32px;cursor:pointer;"></div>
     <button class="add-product-btn" id="showAddProduct"><img src="icons/add.png" class="add-icon" alt="Add"> Add</button>
   </div>
   <div class="main-content">
@@ -605,7 +698,7 @@
     <div id="productCatalogue"></div>
     <div class="pagination"></div>
   </div>
-  <div id="categoryStockInfo" style="display:none;margin:18px auto 0 auto;font-size:1.01rem;font-weight:500;z-index:120;background:rgba(255,255,255,0.92);padding:6px 14px 6px 10px;border-radius:16px 0 16px 16px;box-shadow:0 2px 8px 0 rgba(171,92,227,0.08);max-width:320px;text-align:right;">
+  <div id="categoryStockInfo" class="categoryStockInfo" style="display:none;margin:18px auto 0 auto;font-size:1.01rem;font-weight:500;z-index:120;background:rgb(35, 35, 54);padding:6px 14px 6px 10px;border-radius:16px 0 16px 16px;box-shadow:0 2px 8px 0 rgba(171,92,227,0.08);max-width:320px;text-align:right; color: white; border: 1px solid rgb(53, 52, 52)">
     Category Stock: <span id="categoryStockValue" style="color:#AB5CE3;">0</span>
   </div>
   <!-- Add Product Panel -->
@@ -677,12 +770,114 @@
   </div>
   <div class="footer">
     <div class="footer-logo-section">
-      <div class="logo"><img src="icons/FullLogo_NoBuffer.png"></div>
+  <div class="logo"><img class="footer-logo-img" src="icons/FullLogo_NoBuffer.png"></div>
       <span class="footer-tagline">Your professional destination for<br>the latest electronic devices and smartphones</span>
     </div>
   </div>
   </div>
   <script>
+    // Dark mode toggle logic for panels
+    function setPanelsDarkMode(dark) {
+      document.querySelectorAll('.panel-abs').forEach(function(panel) {
+        panel.classList.toggle('dark-mode', dark);
+      });
+      document.querySelectorAll('.add-product-form, .update-product-form').forEach(function(form) {
+        form.classList.toggle('dark-mode', dark);
+      });
+      document.querySelectorAll('.add-product-title').forEach(function(title) {
+        title.classList.toggle('dark-mode', dark);
+      });
+      document.querySelectorAll('.form-group').forEach(function(group) {
+        group.classList.toggle('dark-mode', dark);
+        group.querySelectorAll('label').forEach(function(label) {
+          label.classList.toggle('dark-mode', dark);
+        });
+      });
+      document.querySelectorAll('.add-product-form input, .add-product-form textarea, .update-product-form input, .update-product-form textarea').forEach(function(el) {
+        el.classList.toggle('dark-mode', dark);
+      });
+    }
+    // Dark mode toggle logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const logoImg = document.querySelector('.logo-img');
+      const footerLogoImg = document.querySelector('.footer-logo-img');
+      const header = document.querySelector('.header');
+      const footer = document.querySelector('.footer');
+      const mainContent = document.querySelector('.main-content');
+      function setCatalogueDarkMode(dark) {
+        const grid = document.querySelector('.catalogue-grid');
+        if (grid) grid.classList.toggle('dark-mode', dark);
+        document.querySelectorAll('.catalogue-item').forEach(function(el) {
+          el.classList.toggle('dark-mode', dark);
+        });
+        document.querySelectorAll('.catalogue-name').forEach(function(el) {
+          el.classList.toggle('dark-mode', dark);
+        });
+        document.querySelectorAll('.catalogue-price').forEach(function(el) {
+          el.classList.toggle('dark-mode', dark);
+        });
+      }
+      function setFiltersDarkMode(dark) {
+        document.querySelectorAll('.products-filters input, .products-filters select').forEach(function(el) {
+          el.classList.toggle('dark-mode', dark);
+        });
+        document.querySelectorAll('.search-icon').forEach(function(el) {
+          el.classList.toggle('dark-mode', dark);
+        });
+      }
+      let darkMode = false;
+      function setDarkMode(on) {
+  setPanelsDarkMode(on);
+        document.body.classList.toggle('dark-mode', on);
+        header.classList.toggle('dark-mode', on);
+        footer.classList.toggle('dark-mode', on);
+        mainContent.classList.toggle('dark-mode', on);
+        logoImg.src = on ? 'icons/White logo.png' : 'icons/FullLogo_NoBuffer.png';
+        logoImg.classList.toggle('dark-mode', on);
+        if (footerLogoImg) {
+          footerLogoImg.src = on ? 'icons/White logo.png' : 'icons/FullLogo_NoBuffer.png';
+          footerLogoImg.classList.toggle('dark-mode', on);
+        }
+        setCatalogueDarkMode(on);
+        setFiltersDarkMode(on);
+      }
+      if (logoImg) {
+        logoImg.addEventListener('click', function() {
+          darkMode = !darkMode;
+          setDarkMode(darkMode);
+        });
+      }
+      // Ensure catalogue grid/items update after re-render
+      const origRenderProductCatalogue = window.renderProductCatalogue;
+      if (typeof origRenderProductCatalogue === 'function') {
+        window.renderProductCatalogue = function() {
+          origRenderProductCatalogue.apply(this, arguments);
+          setCatalogueDarkMode(darkMode);
+        };
+      }
+    });
+    // Dark mode toggle logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const logoImg = document.querySelector('.logo-img');
+      const footerLogoImg = document.querySelector('.footer-logo-img');
+      let darkMode = false;
+      function setDarkMode(on) {
+        document.body.classList.toggle('dark-mode', on);
+        document.querySelector('.header').classList.toggle('dark-mode', on);
+        logoImg.src = on ? 'icons/White logo.png' : 'icons/FullLogo_NoBuffer.png';
+        logoImg.classList.toggle('dark-mode', on);
+        if (footerLogoImg) {
+          footerLogoImg.src = on ? 'icons/White logo.png' : 'icons/FullLogo_NoBuffer.png';
+          footerLogoImg.classList.toggle('dark-mode', on);
+        }
+      }
+      if (logoImg) {
+        logoImg.addEventListener('click', function() {
+          darkMode = !darkMode;
+          setDarkMode(darkMode);
+        });
+      }
+    });
     // --- Responsive Product Catalogue & Table Logic ---
     let currentPage = 1;
     const cataloguePerPage = 6;

@@ -17,7 +17,7 @@
   gap: 32px;
   height: 65px;
   width: 100%;
-  background: linear-gradient(90deg,  rgb(252, 252, 252) 45%, #b66ceb 100%);
+  background: linear-gradient(90deg,  rgb(233, 173, 7) 45%, #b66ceb 100%);
   margin-top: 30px;
   padding: 0 32px;
   border-bottom: 1px solid var(--border);
@@ -176,7 +176,7 @@
     margin: 0 -20px;
   }
   .header {
-    background: linear-gradient(90deg, rgb(240, 235, 235) 30%, #9f39e9 90%);
+    background: linear-gradient(90deg, rgb(238, 11, 79) 30%, #9f39e9 90%);
     justify-content: space-between;
     gap: 0;
     padding: 0 12px;
