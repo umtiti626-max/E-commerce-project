@@ -1,6 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    .user-dropdown-content {
+      width: 100%;
+      padding: 24px 0 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .profile-img-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .profile-img-container {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .profile-img {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #000000;
+      background: #eeeeee;
+      transition: box-shadow 0.2s;
+      box-shadow: 0 2px 8px 0 rgba(162,89,247,0.10);
+      cursor: pointer;
+    }
+    .edit-pen {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px 0 rgba(162,89,247,0.10);
+      padding: 2px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+    .profile-fields {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .profile-input {
+      width: 200px;
+      padding: 7px 12px;
+      border-radius: 1px;
+      border: 1.5px solid #6e6e6e;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-right-color: transparent;
+      font-size: 1rem;
+      background: #f7f8fa;
+      color: #22223b;
+      outline: none;
+      transition: border 0.2s;
+      margin-bottom: 2px;
+    }
+    .profile-input:focus {
+      border: 2px solid #a259ff;
+    }
+    .logout-btn {
+      margin-top: 14px;
+      padding: 8px 90px;
+      border-radius: 2px;
+      background: black;
+      color: #fff;
+      font-size: 1.01rem;
+      border: none;
+      box-shadow: 0 2px 8px 0 rgba(162,89,247,0.10);
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .logout-btn:active {
+      background: rgb(63, 63, 63);
+      box-shadow: 0 4px 18px 0 rgba(162,89,247,0.13);
+      transform: scale(0.97);
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Finalize Your Order</title>
@@ -176,20 +267,26 @@
         margin-top: 61px;
       }
       .mobile-nav-dropdown.open {
-        max-height: 210px;
-        opacity: 1;
-        box-shadow: 0 8px 24px rgba(162,89,247,0.12);
+  max-height: 600px;
+  opacity: 1;
+  box-shadow: 0 8px 24px rgba(162,89,247,0.12);
+  overflow-y: auto;
+  background: #fff;
+  z-index: 9999;
       }
       .mobile-nav-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 32px 0 24px 0;
-        width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 0 2px 0;
+  width: 100%;
+  min-width: 260px;
+  min-height: 220px;
+  background: transparent;
       }
       .mobile-nav-links a {
-        color: var(--primary);
+        color: black;
         font-size: 1rem;
         text-decoration: none;
         position: relative;
@@ -848,6 +945,36 @@
         <!-- Summary will be rendered by JS -->
       </table>
   <script>
+    // Fetch and display user profile info after login
+    function populateUserProfile() {
+      fetch('php logics/get_client_profile.php', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          if (data.name) {
+            document.querySelectorAll('#profileName').forEach(function(el){ el.value = data.name; });
+          }
+          if (data.phone) {
+            document.querySelectorAll('#profilePhone').forEach(function(el){ el.value = data.phone; });
+          }
+          if (data.profile_img) {
+            document.querySelectorAll('#profileImg').forEach(function(img){ img.src = data.profile_img; });
+            document.querySelectorAll('.profile-icon').forEach(function(icon){
+              icon.src = data.profile_img;
+              icon.style.borderRadius = '50%';
+              icon.style.objectFit = 'cover';
+            });
+          }
+        }
+      });
+    }
+    // Call on page load and after login
+    document.addEventListener('DOMContentLoaded', populateUserProfile);
   // Unified dropdown logic for user, cart, and more icons with professional icon toggle
   document.addEventListener('DOMContentLoaded', function() {
     const mobileNavDropdown = document.getElementById('mobileNavDropdown');
@@ -875,11 +1002,23 @@
       </div>
     `;
     const userDropdown = `
-      <div style="width:100%;text-align:center;padding:24px 0;">
-        <strong style="color:var(--primary);font-size:1.1rem;">Account</strong><br>
-        <a href="#" style="color:var(--primary);display:block;margin:5px 0;">Profile</a>
-        <a href="#" style="color:var(--primary);display:block;margin:5px 0;">Orders</a>
-        <a href="#" style="color:var(--danger);display:block;margin:5px 0;">Logout</a>
+      <div class="user-dropdown-content">
+        <div class="profile-img-wrap">
+          <input type="file" id="profileImgInput" accept="image/*" style="display:none;">
+          <div class="profile-img-container">
+            <img id="profileImg" src="icons/user.png" alt="Profile" class="profile-img">
+            <span class="edit-pen" id="editPen"><img src="icons/fountain-pen.png" alt="Edit" style="width:22px;height:21px;"></span>
+          </div>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-name-field">
+            <input type="text" id="profileName" placeholder="Full Name" class="profile-input">
+          </div>
+          <div class="profile-phone-field">
+            <input type="text" id="profilePhone" placeholder="Phone Number" class="profile-input">
+          </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
       </div>
     `;
     function toggleIcons(active) {
@@ -889,16 +1028,73 @@
     function showDropdown(type) {
       let content = navLinks;
       if (type === 'cart') content = cartDropdown;
-      if (type === 'user') content = userDropdown;
-      dropdownContent.innerHTML = content;
-      mobileNavDropdown.classList.add('open');
+      if (type === 'user') content = `
+        <div class="user-dropdown-content">
+          <div class="profile-img-wrap">
+            <input type="file" id="profileImgInput" accept="image/*" style="display:none;">
+            <div class="profile-img-container">
+              <img id="profileImg" src="icons/user.png" alt="Profile" class="profile-img">
+              <span class="edit-pen" id="editPen"><img src="icons/fountain-pen.png" alt="Edit" style="width:18px;height:18px;"></span>
+            </div>
+          </div>
+          <div class="profile-fields">
+            <div class="profile-name-field">
+              <input type="text" id="profileName" placeholder="Full Name" class="profile-input">
+            </div>
+            <div class="profile-phone-field">
+              <input type="text" id="profilePhone" placeholder="Phone Number" class="profile-input">
+            </div>
+          </div>
+          <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+      `;
+      // Fill the correct dropdown container for user icon
+      if (type === 'user') {
+        dropdownContent.innerHTML = content;
+        mobileNavDropdown.classList.add('open');
+      } else {
+        dropdownContent.innerHTML = content;
+        mobileNavDropdown.classList.add('open');
+      }
       toggleIcons(true);
       currentDropdown = type;
     }
+    // Profile image upload logic for dropdown
+    let profileImgSrc = 'icons/user.png';
+    function updateProfileImg(src) {
+      profileImgSrc = src;
+      document.querySelectorAll('#profileImg').forEach(function(img){ img.src = src; });
+      document.querySelectorAll('.profile-icon').forEach(function(icon){
+        icon.src = src;
+        icon.style.borderRadius = '50%';
+        icon.style.objectFit = 'cover';
+      });
+    }
+    document.addEventListener('click', function(e) {
+      if (
+        (e.target.id === 'editPen' || e.target.id === 'editProfileImg') ||
+        (e.target.tagName === 'IMG' && e.target.src && e.target.src.includes('fountain-pen.png'))
+      ) {
+        const input = document.getElementById('profileImgInput');
+        if (input) input.click();
+      }
+    });
+    document.addEventListener('change', function(e) {
+      if (e.target.id === 'profileImgInput' && e.target.files[0]) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          updateProfileImg(ev.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
     function hideDropdown() {
-      mobileNavDropdown.classList.remove('open');
-      toggleIcons(false);
-      currentDropdown = null;
+  mobileNavDropdown.classList.remove('open');
+  // No separate userDropdown, just hide mobileNavDropdown
+  toggleIcons(false);
+  currentDropdown = null;
     }
     // Desktop events
     if (desktopCartIcon) desktopCartIcon.addEventListener('click', function(e) {
@@ -989,12 +1185,24 @@
           </div>
         `;
         const userDropdown = `
-          <div style="width:100%;text-align:center;padding:24px 0;">
-            <strong style="color:var(--primary);font-size:1.1rem;">Account</strong><br>
-            <a href="#" style="color:var(--primary);display:block;margin:5px 0;">Profile</a>
-            <a href="#" style="color:var(--primary);display:block;margin:5px 0;">Orders</a>
-            <a href="#" style="color:var(--danger);display:block;margin:5px 0;">Logout</a>
+         <div class="user-dropdown-content">
+        <div class="profile-img-wrap">
+          <input type="file" id="profileImgInput" accept="image/*" style="display:none;">
+          <div class="profile-img-container">
+            <img id="profileImg" src="icons/user.png" alt="Profile" class="profile-img">
+            <span class="edit-pen" id="editPen"><img src="icons/fountain-pen.png" alt="Edit" style="width:18px;height:18px;"></span>
           </div>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-name-field">
+            <input type="text" id="profileName" placeholder="Full Name" class="profile-input">
+          </div>
+          <div class="profile-phone-field">
+            <input type="text" id="profilePhone" placeholder="Phone Number" class="profile-input">
+          </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
         `;
         function toggleIcons(active) {
           if (mobileMoreIcon) mobileMoreIcon.style.display = active ? 'none' : 'block';
