@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>K Logo — Product Showcase</title>
+
+  <link rel="stylesheet" href="styles/product.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">K Logo</div>
+        <div class="tag">ElectroMart</div>
+      </div>
+
+      <div class="controls">
+        <button id="dark-toggle" class="icon-btn" title="Toggle dark mode">
+          <i data-lucide="moon"></i>
+        </button>
+
+        <div class="search-wrap">
+          <input id="search-input" type="search" placeholder="Search products or brands…" />
+        </div>
+
+        <button id="wishlist-open" class="btn small">Wishlist (<span id="wishlist-count">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    <!-- Sidebar: filters -->
+    <aside class="sidebar">
+      <section class="card">
+        <h3>Filters</h3>
+
+        <div class="filter-group">
+          <label>Brand</label>
+          <div id="brand-filters" class="brands"></div>
+        </div>
+
+        <div class="filter-group">
+          <label>Sort by</label>
+          <select id="sort-select">
+            <option value="default">Recommended</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="latest">Latest</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Price range</label>
+          <input id="price-min" type="number" placeholder="Min" min="0" />
+          <input id="price-max" type="number" placeholder="Max" min="0" />
+          <button id="price-apply" class="btn small">Apply</button>
+          <button id="price-clear" class="btn small ghost">Clear</button>
+        </div>
+
+        <div class="filter-group">
+          <label>Extras</label>
+          <div><input id="only-wishlist" type="checkbox" /> <label for="only-wishlist">Show wishlist only</label></div>
+          <div><input id="only-instock" type="checkbox" /> <label for="only-instock">In stock (placeholder)</label></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Pagination</h3>
+        <div class="page-controls">
+          <label for="per-page">Per page</label>
+          <select id="per-page">
+            <option value="8">8</option>
+            <option value="12" selected>12</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Products & detail view -->
+    <section class="content">
+
+      <!-- Listing toolbar -->
+      <div class="toolbar">
+        <div id="results-info">Showing <span id="results-count">0</span> products</div>
+        <div class="toolbar-actions">
+          <button id="clear-filters" class="btn ghost">Clear filters</button>
+        </div>
+      </div>
+
+      <!-- Products grid -->
+      <div id="listing-view">
+        <div id="products-grid" class="product-grid"></div>
+
+        <!-- Pagination UI -->
+        <div class="pagination" id="pagination">
+          <button id="prev-page" class="btn small">Prev</button>
+          <div id="page-numbers" class="page-numbers"></div>
+          <button id="next-page" class="btn small">Next</button>
+        </div>
+      </div>
+
+      <!-- Product detail view (replaces listing when active) -->
+      <div id="detail-view" class="detail-view hidden"></div>
+
+      <!-- Wishlist drawer (simple modal) -->
+      <div id="wishlist-modal" class="modal hidden" onclick="closeWishlist(event)">
+        <div class="modal-panel" onclick="event.stopPropagation()">
+          <h3>Your wishlist</h3>
+          <div id="wishlist-list"></div>
+          <div class="modal-actions">
+            <button id="close-wishlist" class="btn">Close</button>
+            <button id="clear-wishlist" class="btn ghost">Clear wishlist</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>© 2024 ElectroMart. Built with plain CSS & JS.</div>
+        <div>Images from local `Smartphones/` folder</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product data + main script -->
+     <script type="module" src="./scripts/Smartphones/data.js"></script>
+  <script type="module" src="./scripts/product.js"></script>
+</body>
+</html>
