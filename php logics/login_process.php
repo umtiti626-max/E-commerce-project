@@ -21,7 +21,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_result($hashed_password);
         $stmt->fetch();
         if (password_verify($password, $hashed_password)) {
-            echo json_encode(["status" => "success", "message" => "Login successful!"]);
+            // Fetch client_id, name, phonenumber
+            $stmt2 = $conn->prepare("SELECT client_id, name, phonenumber FROM client WHERE email = ? OR phonenumber = ? LIMIT 1");
+            $stmt2->bind_param("ss", $email_or_number, $email_or_number);
+            $stmt2->execute();
+            $result2 = $stmt2->get_result();
+            if ($row = $result2->fetch_assoc()) {
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Login successful!",
+                    "client_id" => $row['client_id'],
+                    "name" => $row['name'],
+                    "phonenumber" => $row['phonenumber']
+                ]);
+            } else {
+                echo json_encode(["status" => "success", "message" => "Login successful!"]);
+            }
+            $stmt2->close();
         } else {
             echo json_encode(["status" => "error", "message" => "Account not found."]);
         }

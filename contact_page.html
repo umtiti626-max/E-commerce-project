@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finalize Your Order</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CONTACT.CSS">
+  <title>Header</title>
   <style>
-    @media (max-width: 530px) {
+     @media (max-width: 530px) {
       .desktop-icons {
         display: none !important;
       }
@@ -961,46 +961,55 @@
     </div>
   </div>
 
-
-  <!--- THE MAIN-CONTENT THAT WOULD BE INTERCHANGED WHEN THE LINKS ARE CLICKED----------------->
-  <div class="main-content">
-    <div class="title">Finalize Your Order</div>
-    <div class="card">
-      <div class="section-title">Select  a Product for Ordering</div>
-      <div class="products-list" id="productsList">
-        <!-- Products will be rendered by JS -->
+  <!-- SECTION FOR THE BODY OF THE CONTACT PAGE-->
+   <div class="main-content">
+    <div class="hero">
+    <h1>Contact Our Team</h1>
+    <p>We're here to help you with any questions or support you might need. Feel free to reach out to us!</p>
+  </div>
+  <div class="main">
+    <form class="contact-form" autocomplete="off" onsubmit="return false;">
+      <h2>Send Us a Message</h2>
+      <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+      <div class="form-group">
+        <input type="text" id="name" name="name" placeholder=" " required>
+        <label for="name">Your Name</label>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" placeholder=" " required>
+        <label for="email">Your Email</label>
+      </div>
+      <div class="form-group">
+        <input type="text" id="subject" name="subject" placeholder=" " required>
+        <label for="subject">Subject</label>
+      </div>
+      <div class="form-group">
+        <textarea id="message" name="message" placeholder=" " required></textarea>
+        <label for="message">Message</label>
+      </div>
+      <button class="send-btn" id="sendBtn">Send Message</button>
+      <div id="formStatus" style="margin-top:12px;font-size:1.05rem;"></div>
+    </form>
+    <div class="contact-info">
+      <div class="info-block">
+        <h2>Our Contact Information</h2>
+        <p>Reach out to us directly through these channels.</p>
+        <ul class="info-list">
+          <li><img src="icons/call.png" alt="Call" style="width:20px;height:20px;vertical-align:middle;"> +237 672527559</li>
+          <li><img src="icons/whatsapp.png" alt="WhatsApp" style="width:20px;height:20px;vertical-align:middle;"> +(237) 672527559</li>
+          <li><img src="icons/mail.png" alt="Mail" style="width:20px;height:20px;vertical-align:middle;"> obaseviv@gmail.com.com</li>
+          <li><img src="icons/location-pin.png" alt="Location" style="width:20px;height:20px;vertical-align:middle;">Malingo street, Buea, Cameroon</li>
+        </ul>
+      </div>
+      <div class="map-block">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=123+Main+Street,Anytown,USA&zoom=13&size=320x160&maptype=roadmap&markers=color:purple%7Clabel:S%7C123+Main+Street,Anytown,USA&key=AIzaSyDUMMYKEY" alt="Map" />
+        <div class="map-label">Find Us Here<br><span style="font-size:0.98rem;color:#6e6e6e;">Malingo street, Buea, Cameroon</span></div>
       </div>
     </div>
-    <div class="card">
-      <div class="section-title">Contact Information</div>
-      <form class="contact-form">
-        <label class="form-label" for="fullName">Full Name</label>
-        <input class="form-input" id="fullName" type="text" >
-        <label class="form-label" for="phoneNumber">Phone Number</label>
-        <input class="form-input" id="phoneNumber" type="text" >
-        <label class="form-label" for="email">Email Address</label>
-        <input class="form-input" id="email" type="email" >
-        <label class="form-label" for="address">Shipping Address</label>
-        <textarea class="form-textarea" id="address" rows="2"></textarea>
-      </form>
-    </div>
-    <div class="card order-summary">
-      <div class="section-title">Order Summary</div>
-      <ul class="order-list" id="orderList">
-        <!-- Order items will be rendered by JS -->
-      </ul>
-      <table class="order-summary-table" id="orderSummaryTable">
-        <!-- Summary will be rendered by JS -->
-      </table> 
-    </div>
-    <div class="card share-section">
-      <div class="section-title">Share Order Details</div>
-      <div class="share-actions">
-        <button class="share-btn"><img src="icons/whatsapp.png" >Share via WhatsApp</button>
-        <button class="share-btn"><img src="icons/gmail.png"> via Email</button>
-      </div>
-    </div>
-    <div class="footer">
+  </div>
+ <!---MAIN-CONTENT TO BE SWAPPED IN WITH-->
+ 
+  <div class="footer">
  
   <div class="footer-logo-section" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
      <div class="logo" style="flex:0 0 auto; margin-right: 300px;"><img src="icons/FullLogo_NoBuffer.png"></div>
@@ -1029,10 +1038,6 @@
 </div>
 </div>
 </body>
-<!--END OF MAIN CONTENT-------------------------------------------------------->
-<!----SECTION FOR THE SCRIPT'S CODE-->
-
-
 <script>
     // Fetch and display user profile info after login
     function populateUserProfile() {
@@ -1319,28 +1324,9 @@
     // Initial state
     toggleIcons(false);
   });
-    // Product data
-    const products = [
-      {
-        id: 1,
-        name: "Samsung Galaxy S21 Ultra",
-        price: 1199.99,
-        image: "Smartphones/Samsung S21 ultra.jpeg"
-      },
-      {
-        id: 2,
-        name: "Apple iPhone 15 Pro Max",
-        price: 1299.99,
-        image: "SMartphones/Iphone 15 Pro Max.jpg"
-      },
-      {
-        id: 3,
-        name: "Google Pixel 8 Pro",
-        price: 999.99,
-        image: "Smartphones/Google Pixel 9.jpg"
-      }
-    ];
-      // Unified dropdown logic for user, cart, and more icons with professional icon toggle
+
+
+  // Unified dropdown logic for user, cart, and more icons with professional icon toggle
       document.addEventListener('DOMContentLoaded', function() {
         const mobileNavDropdown = document.getElementById('mobileNavDropdown');
         const dropdownContent = document.getElementById('dropdownContent');
@@ -1442,104 +1428,11 @@
             e.target !== mobileCartIcon && e.target !== mobileUserIcon && e.target !== mobileMoreIcon) {
             hideDropdown();
           }
+        })
         });
-        // Initial state
-        toggleIcons(false);
-      });
-    let selectedProductId = null;
-    let quantities = { 1: 1, 2: 1, 3: 1 };
 
-    function renderProducts() {
-      const list = document.getElementById('productsList');
-      list.innerHTML = products.map(product => {
-        const checked = selectedProductId === product.id ? 'checked' : '';
-        const disabled = selectedProductId && selectedProductId !== product.id ? 'disabled' : '';
-        return `
-          <div class="product-item ${disabled ? 'inactive' : ''}">
-            <input type="checkbox" class="product-checkbox" data-id="${product.id}" ${checked} ${disabled}>
-            <img src="${product.image}" class="product-img" alt="${product.name}">
-            <div class="product-info">
-              <span class="product-name">${product.name}</span>
-              <span class="product-price">$${product.price.toFixed(2)}</span>
-            </div>
-            <div class="product-actions">
-              <button class="qty-btn" data-action="decrement" data-id="${product.id}" ${disabled}><img src="icons/minus (1).png"></button>
-              <span class="product-qty" id="qty-${product.id}">${quantities[product.id]}</span>
-              <button class="qty-btn" data-action="increment" data-id="${product.id}" ${disabled}><img src="icons/plus (1).png"></button>
-             
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
 
-    function renderOrderSummary() {
-      const orderList = document.getElementById('orderList');
-      const summaryTable = document.getElementById('orderSummaryTable');
-      if (!selectedProductId) {
-        orderList.innerHTML = '<li style="color: var(--muted);">No product selected.</li>';
-        summaryTable.innerHTML = '';
-        return;
-      }
-      const product = products.find(p => p.id === selectedProductId);
-      const qty = quantities[selectedProductId];
-      const subtotal = product.price * qty;
-      const vat = subtotal * 0.01;
-      const total = subtotal + vat;
-      orderList.innerHTML = `
-        <li style="display:flex;align-items:center;gap:12px;">
-          <img src="${product.image}" alt="${product.name}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;border:1px solid #eee;">
-          <span>${product.name}</span>
-          <span class="qty">x ${qty}</span>
-        </li>
-      `;
-      summaryTable.innerHTML = `
-        <tr>
-          <td class="label">Subtotal</td>
-          <td>$${subtotal.toFixed(2)}</td>
-        </tr>
-        <tr>
-          <td class="label">VAT (1%)</td>
-          <td>$${vat.toFixed(2)}</td>
-        </tr>
-        <tr>
-          <td class="total">Total Amount</td>
-          <td class="total" style="color: var(--primary);">$${total.toFixed(2)}</td>
-        </tr>
-      `;
-    }
-
-    function updateUI() {
-      renderProducts();
-      renderOrderSummary();
-      attachEventListeners();
-    }
-
-    function attachEventListeners() {
-      document.querySelectorAll('.product-checkbox').forEach(cb => {
-        cb.addEventListener('change', function() {
-          if (this.checked) {
-            selectedProductId = Number(this.dataset.id);
-          } else {
-            selectedProductId = null;
-          }
-          updateUI();
-        });
-      });
-      document.querySelectorAll('.qty-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const id = Number(this.dataset.id);
-          if (this.dataset.action === 'increment') {
-            quantities[id]++;
-          } else if (this.dataset.action === 'decrement' && quantities[id] > 1) {
-            quantities[id]--;
-          }
-          updateUI();
-        });
-      });
-    }
-      
-    document.addEventListener('DOMContentLoaded', function() {
+         document.addEventListener('DOMContentLoaded', function() {
       if (!localStorage.getItem('client_id')) {
         window.location.href = 'login_form.html';
         return;
