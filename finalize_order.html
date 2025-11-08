@@ -939,8 +939,8 @@
     <div class="nav desktop-nav" style="flex:1 1 auto;display:flex;justify-content:center;gap:32px;">
       <a href="#">HOME</a>
       <a href="#">PRODUCTS</a>
-      <a href="#">ORDER</a>
-      <a href="#">CONTACTS</a>
+  <a href="finalize_order.html">ORDER</a>
+  <a href="contact_page.html">CONTACTS</a>
     </div>
     <div class="desktop-icons" style="display:flex;align-items:center;gap:8px; margin-right: 70px;">
       <img src="icons/shopping-cart (1).png" alt="Cart" class="cart-icon" id="desktopCartIcon" style="width:28px;height:28px;object-fit:contain;margin-right:35px;cursor:pointer;">
@@ -1009,8 +1009,8 @@
   <nav class="footer-nav">
     <a href="#">HOME</a>
     <a href="#">PRODUCTS</a>
-    <a href="#">ORDER</a>
-    <a href="#">CONTACTS</a>
+  <a href="finalize_order.html">ORDER</a>
+  <a href="contact_page.html">CONTACTS</a>
   </nav>
 </div>
 <div class="footer-social-section">
@@ -1036,31 +1036,37 @@
 <script>
     // Fetch and display user profile info after login
     function populateUserProfile() {
-          fetch('php logics/get_client_info.php', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({})
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          if (data.name) {
-            document.querySelectorAll('#profileName').forEach(function(el){ el.value = data.name; });
-          }
-          if (data.phone) {
-            document.querySelectorAll('#profilePhone').forEach(function(el){ el.value = data.phone; });
-          }
-          if (data.profile_img) {
-            document.querySelectorAll('#profileImg').forEach(function(img){ img.src = data.profile_img; });
-            document.querySelectorAll('.profile-icon').forEach(function(icon){
-              icon.src = data.profile_img;
-              icon.style.borderRadius = '50%';
-              icon.style.objectFit = 'cover';
-            });
-          }
+    fetch('php logics/get_client_info.php', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'success') {
+        if (data.name) {
+          document.querySelectorAll('#profileName').forEach(function(el){ el.textContent = data.name; });
         }
-      });
+        if (data.phonenumber) {
+          document.querySelectorAll('#profilePhone').forEach(function(el){ el.textContent = data.phonenumber; });
+        }
+        var imgSrc = (data.profile_image && data.profile_image !== '') ? data.profile_image : 'icons/user.png';
+        document.querySelectorAll('#profileImg').forEach(function(img){ img.src = imgSrc; });
+        document.querySelectorAll('.profile-icon').forEach(function(icon){
+          icon.src = imgSrc;
+          icon.style.borderRadius = '50%';
+          icon.style.objectFit = 'cover';
+        });
+      } else {
+        document.querySelectorAll('#profileImg').forEach(function(img){ img.src = 'icons/user.png'; });
+        document.querySelectorAll('.profile-icon').forEach(function(icon){
+          icon.src = 'icons/user.png';
+          icon.style.borderRadius = '50%';
+          icon.style.objectFit = 'cover';
+        });
+      }
+    });
     }
     // Call on page load and after login
     document.addEventListener('DOMContentLoaded', populateUserProfile);
@@ -1081,8 +1087,8 @@
     const navLinks = `
       <a href="#">HOME</a>
       <a href="#">PRODUCTS</a>
-      <a href="#">ORDER</a>
-      <a href="#">CONTACTS</a>
+  <a href="finalize_order.html">ORDER</a>
+  <a href="contact_page.html">CONTACTS</a>
     `;
     const cartDropdown = `
       <div style="width:100%;text-align:center;padding:24px 0;">
@@ -1357,8 +1363,8 @@
         const navLinks = `
           <a href="#">HOME</a>
           <a href="#">PRODUCTS</a>
-          <a href="#">ORDER</a>
-          <a href="#">CONTACTS</a>
+          <a href="finalize_order.html">ORDER</a>
+          <a href="contact_page.html">CONTACTS</a>
         `;
         const cartDropdown = `
           <div style="width:100%;text-align:center;padding:24px 0;">
