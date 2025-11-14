@@ -9,18 +9,32 @@
 <body>
 <!-- -----------------------NAVBAR----------------------- -->
     <nav>
-        <img class="logo" src="/E-commerce-project/icons/White logo.png" alt="">
+        <img class="logo" src="/icons/Dark-mode logo.png" alt="">
        
         <div class="sections">
+
+             <ul class="sidebar">
+            <li onclick = hideSidebar()><a href=""><img src="/icons/check.png" alt=""></a></li>
             <li><a href="">Home</a></li>
             <li><a href="">Products</a></li>
             <li><a href="">Shipping</a></li>
             <li><a href="">Contacts</a></li>
+            </ul>
+
+            <ul>
+            <li class="hideOnMobile"><a href="">Home</a></li>
+            <li class="hideOnMobile"><a href="">Products</a></li>
+            <li class="hideOnMobile"><a href="">Shipping</a></li>
+            <li class="hideOnMobile"><a href="">Contacts</a></li>
+            </ul>
+            
         </div>
         <div class="nav-icons">
-            <img src="shopping-cart-line.svg" alt="">
+            <img src="/icons/check.png">
             <img src="user-line.svg" alt="">
+            <img onclick=showSidebar() src="/icons/check.png" alt="">
         </div>
+        
      
     </nav>
 
@@ -46,7 +60,7 @@
         <div class="cards">
               <div class="card">
                   <div class="card-img">
-                 <img class="card-icon" src="search-line.svg" alt="">
+                 <img class="card-icon" src="/icons/search-interface-symbol (3).png" alt="">
             </div>
               <h3>Explore & Discover</h3>
             <p class="card-p">Browse our extensive catalog of cutting-edge smartphones and electronic devices. Find detailed specifications, reviews, and comparions to make an informed choice</p>
@@ -61,7 +75,7 @@
         </div>
         <div class="card">
             <div class="card-img">
-                 <img class="card-icon" src="truck-line.svg" alt="">
+                 <img class="card-icon" src="/icons/delivery.png" alt="">
             </div>
             <h3>Fast Delivery</h3>
             <p class="card-p">Receive your new devices quickly and reliably with our efficient shipping partners. Track your order every step of the way until it arrives at your doorstep.</p>
@@ -70,10 +84,10 @@
       
     </section>
 
-    <section class="footer-section">
+    <!-- <section class="footer-section">
         <div class="footer">
             <div class="social-media">
-            <img class="logo" src="/E-commerce-project/icons/Dark-mode logo.png" alt="">
+            <img class="logo" src="/icons/Dark-mode logo.png">
             <p class="card-r">Your professional destination for <br> the latest electronic devices and smartphones.</p>
             <img src="facebook-fill.svg" alt="">
             <img src="instagram-line.svg" alt="">
@@ -109,7 +123,19 @@
         </div>
        
         
-    </section>
+    </section> -->
+
+    <script>
+        function showSidebar() {
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'flex'
+        }
+
+        function hideSidebar() {
+             const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'none'
+        }
+    </script>
    
     
 </body>
