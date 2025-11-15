@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+  
+  <style>
+     @media (max-width: 530px) {
+      .desktop-icons {
+        display: none !important;
+      }
+    }
+    :root {
+      --primary: #a259f7;
+      --primary-light: #e9d8fd;
+      --text: #22223b;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --white: #fff;
+      --card: #fafbfc;
+      --accent: #b794f4;
+      --danger: #e11d48;
+    }
+    @media (max-width: 530px) {
+      .desktop-nav {
+        display: none !important;
+      }
+      .mobile-icons {
+        display: flex !important;
+        margin: 0 -20px;
+      
+      }
+      .header {
+        background:linear-gradient(90deg, rgb(240, 159, 9) 30%, #9f39e9 79%);
+        justify-content: space-between;
+        gap: 0;
+        padding: 0 12px;
+      }
+      .logo img {
+        width: 150px;
+        margin-top: 0;
+      }
+    }
+      @media (max-width: 530px) {
+        .main-content {
+          padding: 24px 12px 0 12px;
+          box-sizing: border-box;
+          width: 100%;
+          min-width: 0;
+          max-width: 100vw;
+          overflow-x: hidden;
+        }
+        .card {
+          padding: 20px 10px 16px 10px;
+          margin-bottom: 20px;
+          max-width: 90%;
+          box-sizing: border-box;
+        }
+        .title {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+          margin-top: 10px;
+        }
+        .section-title {
+          font-size: 1rem;
+          margin-bottom: 12px;
+          margin-left: 80px;
+        }
+        .products-list {
+          gap: 16px;
+        }
+        .product-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+          padding: 0;
+        }
+        .product-img {
+          width: 908px;
+          
+        }
+        .product-info {
+          gap: 1px;
+        }
+        .product-name {
+          font-size: 1rem;
+        }
+        .product-price {
+          font-size: 0.95rem;
+        }
+        .contact-form {
+          gap: 5px;
+        }
+        .form-input, .form-textarea, .form-label {
+          font-size: 1rem;
+          padding: 8px;
+          margin-bottom: 8px;
+          width: 90%;
+          margin-left: 20px;
+          box-sizing: border-box;
+        }
+        .order-summary {
+          padding: 16px 8px;
+          width: 200px;
+        }
+        .order-list {
+          padding-left: 0;
+        }
+        .order-list li{
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        .order-summary-table {
+          font-size: 0.95rem;
+          margin-left: 20px;
+          width: 100%;
+        }
+        
+        .share-btn{
+          width: 160px;
+          margin-left: 25px;
+          margin: 0px 15px;
+
+        }
+      }
+      html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      min-height: 100vh;
+      width: 100vw;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    .header {
+      display: flex;
+      background:linear-gradient(90deg, rgb(240, 159, 9) 30%, #9f39e9 79%);
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      height: 65px;
+      width: 100%;
+      margin-top: 0px;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+     .mobile-nav-dropdown {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        background: var(--white);
+        box-shadow: 0 4px 16px rgba(162,89,247,0.08);
+        border-bottom: 1px solid var(--border);
+        z-index: 100;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: max-height 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+        margin-top: 61px;
+      }
+      .mobile-nav-dropdown.open {
+        max-height: 600px;
+        opacity: 1;
+        box-shadow: 0 8px 24px rgba(162,89,247,0.12);
+        overflow-y: auto;
+        background: #fff;
+        z-index: 9999;
+            }
+            .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 0 2px 0;
+        width: 100%;
+        min-width: 260px;
+        min-height: 220px;
+        background: transparent;
+      }
+      .mobile-nav-links a {
+        color: black;
+        font-size: 1rem;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.2s;
+        text-align: center;
+        letter-spacing: 0.5px;
+        padding: 8px 0;
+      }
+      .mobile-nav-links a::before,
+      .mobile-nav-links a::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 60%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 2px;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 1;
+      }
+      .mobile-nav-links a::before {
+        top: 0;
+      }
+      .mobile-nav-links a::after {
+        bottom: 0;
+      }
+      .mobile-nav-links a:hover::before,
+      .mobile-nav-links a:focus::before,
+      .mobile-nav-links a:hover::after,
+      .mobile-nav-links a:focus::after {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1);
+      }
+      @media (max-width: 530px) {
+        .mobile-nav-dropdown {
+          display: flex;
+        }
+      }
+    .header .more-icon {
+  transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+  transform: rotate(360deg);
+  transform: rotate(-360deg);
+      display: none;
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      
+      margin-top: 2px;
+    }
+    .header .more-icon {
+      display: block;
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    @media (max-width: 530px) {
+      .nav, .profile {
+        display: none !important;
+      }
+      .header .logo {
+        margin-right: auto;
+      }
+      .header .logo img{
+        width: 140px;
+        margin-top: 15px;
+      }
+      .header .more-icon {
+        display: none;
+        margin-left: auto;
+       
+      }
+      .header {
+        justify-content: space-between;
+      }
+    }
+    
+     @media (max-width: 988px) {
+      .nav, .profile {
+        display: none !important;
+      }
+      .header .logo {
+        margin-right: auto;
+      }
+      .header .more-icon {
+        display: block;
+        margin-left: auto;
+        margin-right: 40px;
+      }
+      .header {
+        justify-content: space-between;
+      }
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 70px;
+      margin-top: -20px;
+      color: var(--primary);
+    }
+    .logo img{
+        width: 160px;
+        margin-top: 21px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 1rem;
+      font-family: "calibri";
+      font-weight: bolder;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0 8px;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav a::before,
+    .nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      opacity: 0;
+      transform: scaleX(0);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 1;
+    }
+    .nav a:hover::before {
+      opacity: 1;
+      transform: scaleX(.9);
+    }
+    .nav a:focus::before {
+      opacity: 1;
+      transform: scaleX(.9);
+    }
+    .nav a.active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .profile {
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+     
+    }
+    .profile img{
+        width: 30px;
+        margin-right: 80px;
+    }
+    
+    .profile-fields {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .profile-name-field, .profile-phone-field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .profile-name-field label, .profile-phone-field label {
+      text-align: center;
+      width: 100%;
+    }
+    .profile-name-field span, .profile-phone-field span {
+      text-align: center;
+      width: 100%;
+    }
+    .profile-icon {
+      border-radius: 50%;
+      border: 1px solid #696969;
+      object-fit: cover;
+      width: 28px;
+      height: 28px;
+      background: white;
+      transition: border 0.2s;
+    }
+    .profile-fields{
+      margin-left: -13px;
+      margin-top: 15px;
+      align-items: center;
+    }
+    .user-dropdown-content {
+      width: 100%;
+      padding: 24px 0 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    @media (max-width: 600px) {
+      .user-dropdown-content {
+        background: url('icons/cover.jpeg') no-repeat center center;
+        background-size: cover;
+        background-position: center;
+        min-height: 30vh;
+        width: 100vw;
+      }
+    }
+    .profile-img-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .profile-img-container {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .profile-img {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #000000;
+      background: #eeeeee;
+      transition: box-shadow 0.2s;
+      box-shadow: 0 2px 8px 0 rgba(162,89,247,0.10);
+      cursor: pointer;
+    }
+    .edit-pen {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px 0 rgba(120 48 203 / 44%);
+      padding: 2px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+    .profile-fields {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .profile-input {
+      width: 200px;
+      padding: 7px 12px;
+      border-radius: 1px;
+      border: 1.5px solid #6e6e6e;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-right-color: transparent;
+      font-size: 1rem;
+      background: #f7f8fa;
+      color: #22223b;
+      outline: none;
+      transition: border 0.2s;
+      margin-bottom: 2px;
+    }
+    .profile-input:focus {
+      border: 2px solid #a259ff;
+    }
+    .logout-btn {
+      margin-top: 14px;
+      padding: 8px 90px;
+      border-radius: 2px;
+      background: black;
+      color: #fff;
+      font-size: 1.01rem;
+      border: none;
+      box-shadow: 0 2px 8px 0 rgba(162,89,247,0.10);
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .logout-btn:active {
+      background: rgb(63, 63, 63);
+      box-shadow: 0 4px 18px 0 rgba(162,89,247,0.13);
+      transform: scale(0.97);
+    }
+  
+    .main-content {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 0 0 0;
+      background: transparent;
+      height: 100%;
+      overflow-y: scroll;
+     
+    }
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      margin-top: 16px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px 0 rgba(162,89,247,0.04);
+      border: 1px solid var(--border);
+      padding: 32px 32px 24px 32px;
+      margin-bottom: 32px;
+      width: 100%;
+      max-width: 830px;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+    .products-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 8px;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 0 0 0;
+      background: transparent;
+    }
+    .product-checkbox {
+      margin-right: 8px;
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+    .product-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+    }
+    .product-info {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .product-name {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .product-price {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .product-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+    .product-qty {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+      color: black;
+      font-weight: 600;
+    }
+    .product-qty span {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .qty-btn{
+        background: transparent;
+        border: none;
+        width: fit-content;
+        cursor: pointer;
+    }
+    .qty-btn img{
+        width: 20px;
+        cursor: pointer;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 0;
+    }
+    .form-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .form-input, .form-textarea {
+      width: 90%;
+      padding: 12px 34px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      font-size: 1rem;
+      background: #f7f8fa;
+      color: var(--text);
+      outline: none;
+      transition: border 0.2s;
+      margin-bottom: 0;
+      appearance: none;
+      resize: none;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+    .order-summary {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .order-list {
+      margin-bottom: 12px;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .order-list li {
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .order-list .qty {
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin-left: 8px;
+    }
+    .order-summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 0;
+    }
+    .order-summary-table td {
+      padding: 6px 0;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .order-summary-table .label {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .order-summary-table .total {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding-top: 8px;
+    }
+    .share-section {
+      margin-top: 32px;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .share-actions {
+      display: flex;
+      gap: 18px;
+      margin-top: 12px;
+    }
+    .share-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f7f8fa;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px 22px;
+      margin-bottom: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
+  
+    .share-btn:hover {
+      background:  linear-gradient(30deg,#9f39e9 19%, rgb(238, 182, 79) 75%);
+      color: white;
+      border-color: none;
+    }
+    .footer{
+  @media (max-width: 530px) {
+    .footer {
+      flex-direction: row;
+      height: 200px;
+      padding: 18px 0;
+      align-items: flex-start;
+    
+    }
+    .footer-logo-section {
+      flex: 1;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      display: flex;
+      flex-direction: column;
+      margin-left: 18px;
+    }
+    .footer-logo-section img {
+     
+      margin-bottom: 4px !important;
+      width: 150px;
+      margin-top: 20px;
+    }
+    .footer-tagline {
+      font-size: 0.85rem !important;
+      text-align: left !important;
+      max-width: 220px;
+    }
+    .footer-nav {
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: flex-start !important;
+      gap: 10px !important;
+     
+    }
+    .footer-nav a {
+      font-size: 0.85rem !important;
+      text-align: right;
+    }
+  }
+        display: flex;
+        width: 100%;
+        height: 100px;
+        min-height: 100px;
+        background:#a259f7;
+        margin-top: 20px;
+       
+    }
+   
+    .share-btn img{
+        width: 30px;
+    }
+    @media (max-width: 900px) {
+      .main-content {
+        padding: 24px 0 0 0;
+      }
+      .card {
+        padding: 18px 8px 18px 8px;
+        max-width: 98vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .header {
+        padding: 0 8px;
+      }
+      .main-content {
+        padding: 12px 0 0 0;
+      }
+      .card {
+        padding: 12px 2px 12px 2px;
+        max-width: 100vw;
+      }
+      .title {
+        font-size: 1.5rem;
+      }
+    }
+  @media (min-width: 431px) {
+      #headerCloseIcon {
+        display: none !important;
+      }
+      #mobileMenuBtn {
+        display: none !important;
+      }
+    }
+     @media (min-width: 431px) {
+      .desktop-icons {
+        display: flex !important;
+      }
+      .mobile-icons {
+        display: none !important;
+      }
+    }
+    .footer {
+      @media(max-width:778px ){
+    .footer {
+      flex-direction: row;
+      height: 200px;
+      padding: 18px 0;
+      align-items: flex-start;
+    
+    }
+    .footer-logo-section {
+      flex: 1;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+      display: flex;
+      flex-direction: column;
+      margin-left: 18px;
+    }
+    .footer-logo-section img {
+     
+      margin-bottom: 4px !important;
+      width: 150px;
+      margin-top: 20px;
+    }
+    .footer-tagline {
+      font-size: 0.85rem !important;
+      text-align: left !important;
+      max-width: 220px;
+    }
+    .footer-nav {
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: flex-start !important;
+      gap: 10px !important;
+      
+    }
+    .footer-nav a {
+      font-size: 0.85rem !important;
+      text-align: right;
+    }
+  }
+        display: flex;
+        width: 100%;
+        height: 100px;
+        min-height: 100px;
+        background:#a259f7;
+        margin-top: 20px;
+       
+    }
+   
+   .footer {
+    display: flex;
+    width: 100%;
+    height: 150px;
+    min-height: 150px;
+    background: white;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-top: 1px solid #d1b3ff;
+    box-shadow: 0 -6px 18px 0 rgba(169, 106, 241, 0.18);
+    border: 1px solid;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-top-color:  transparent;
+   
+}
+.footer-nav {
+    display: flex;
+    flex-direction: row !important;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+    margin-left: -100px;
+    margin-right: 20px;
+        
+}
+.footer-nav a {
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: "calibri";
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+.footer-nav a:hover {
+    color: #e9d8fd;
+}
+ .footer-social-section {
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0 32px 0;
+    margin-top: -10px;
+    box-shadow: 0 2px 12px rgba(162,89,247,0.07);
+    border:transparent;
+  }
+  .footer-social-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #0e0d0d;
+    margin-bottom: 18px;
+    letter-spacing: 0.1px;
+    text-shadow: 0 1px 8px #e9d8fd;
+    text-align: center;
+  }
+  .footer-social-icons {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  }
+  .footer-social-icons .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(162,89,247,0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid #fafbfc;
+  }
+  .footer-social-icons .social-icon:hover {
+    transform: scale(1.12) translateY(-2px);
+    box-shadow: 0 6px 18px rgba(162,89,247,0.18);
+    border-color: transparent;
+  }
+  .footer-social-icons .social-icon img {
+    width: 28px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 4px #e8dbff);
+    transition: filter 0.2s;
+  }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo" style="flex:0 0 auto;"><img src="icons/logo_complete.png"></div>
+    <div class="nav desktop-nav" style="flex:1 1 auto;display:flex;justify-content:center;gap:32px;">
+      <a href="#">HOME</a>
+      <a href="#">PRODUCTS</a>
+      <a href="#">ORDER</a>
+      <a href="#">CONTACTS</a>
+    </div>
+    <div class="desktop-icons" style="display:flex;align-items:center;gap:8px; margin-right: 70px;">
+      <img src="icons/shopping-cart (1).png" alt="Cart" class="cart-icon" id="desktopCartIcon" style="width:28px;height:28px;object-fit:contain;margin-right:35px;cursor:pointer;">
+      <img src="icons/user.png" alt="User" class="profile-icon" id="desktopUserIcon" style="width:28px;height:28px;object-fit:contain;cursor:pointer;">
+    </div>
+    <div class="mobile-icons" style="display:none;align-items:center;gap:18px;">
+      <img src="icons/shopping-cart (1).png" alt="Cart" class="cart-icon" id="mobileCartIcon" style="width:28px;height:28px;object-fit:contain;margin-top: 5px; margin-right: 5px;cursor:pointer;">
+      <img src="icons/user.png" alt="User" class="profile-icon" id="mobileUserIcon" style="width:28px;height:28px;object-fit:contain;margin-right: 50px;cursor:pointer;">
+      <span style="position:relative;display:inline-block;min-width:32px;height:32px;">
+        <img src="icons/menu.png" class="more-icon" alt="More" id="mobileMoreIcon" style="display:block;position:absolute;top:0;right:0;cursor:pointer;">
+        <img src="icons/close (1).png" class="more-icon" alt="Close" id="headerCloseIcon" style="display:none;position:absolute;top:0;right:0;cursor:pointer;">
+      </span>
+    </div>
+    <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+      <div class="mobile-nav-links" id="dropdownContent">
+        <!-- Dropdown content will be set by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!---MAIN CONTENT SECTION-->
+
+</body>
+<script>
+    // Fetch and display user profile info after login
+    function populateUserProfile() {
+    fetch('php logics/get_client_info.php', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'success') {
+        if (data.name) {
+          document.querySelectorAll('#profileName').forEach(function(el){ el.textContent = data.name; });
+        }
+        if (data.phonenumber) {
+          document.querySelectorAll('#profilePhone').forEach(function(el){ el.textContent = data.phonenumber; });
+        }
+        var imgSrc = (data.profile_image && data.profile_image !== '') ? data.profile_image : 'icons/user.png';
+        document.querySelectorAll('#profileImg').forEach(function(img){ img.src = imgSrc; });
+        document.querySelectorAll('.profile-icon').forEach(function(icon){
+          icon.src = imgSrc;
+          icon.style.borderRadius = '50%';
+          icon.style.objectFit = 'cover';
+        });
+      } else {
+        document.querySelectorAll('#profileImg').forEach(function(img){ img.src = 'icons/user.png'; });
+        document.querySelectorAll('.profile-icon').forEach(function(icon){
+          icon.src = 'icons/user.png';
+          icon.style.borderRadius = '50%';
+          icon.style.objectFit = 'cover';
+        });
+      }
+    });
+    }
+    // Call on page load and after login
+    document.addEventListener('DOMContentLoaded', populateUserProfile);
+  // Unified dropdown logic for user, cart, and more icons with professional icon toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavDropdown = document.getElementById('mobileNavDropdown');
+    const dropdownContent = document.getElementById('dropdownContent');
+    const closeIcon = document.getElementById('headerCloseIcon');
+    // Desktop icons
+    const desktopCartIcon = document.getElementById('desktopCartIcon');
+    const desktopUserIcon = document.getElementById('desktopUserIcon');
+    // Mobile icons
+    const mobileCartIcon = document.getElementById('mobileCartIcon');
+    const mobileUserIcon = document.getElementById('mobileUserIcon');
+    const mobileMoreIcon = document.getElementById('mobileMoreIcon');
+    let currentDropdown = null;
+    // Dropdown contents
+    const navLinks = `
+      <a href="#">HOME</a>
+      <a href="#">PRODUCTS</a>
+      <a href="#">ORDER</a>
+      <a href="#">CONTACTS</a>
+    `;
+    const cartDropdown = `
+      <div style="width:100%;text-align:center;padding:24px 0;">
+        <strong style="color:var(--primary);font-size:1.1rem;">Your Cart</strong><br><br>
+        <span style="color:var(--muted);font-size:0.95rem;">No items in cart.</span>
+      </div>
+    `;
+    const userDropdown = `
+      <div class="user-dropdown-content">
+        <div class="profile-img-wrap">
+          <input type="file" id="profileImgInput" accept="image/*" style="display:none;">
+          <div class="profile-img-container">
+            <img id="profileImg" src="icons/user.png" alt="Profile" class="profile-img">
+            <span class="edit-pen" id="editPen"><img src="icons/fountain-pen.png" alt="Edit" style="width:22px;height:21px;"></span>
+          </div>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-name-field">
+            <label style="font-size:0.95rem;color:#22223b;">Full Name:</label>
+            <span id="profileName" style="display:block;font-weight:600;color:#4f2cc8;margin-bottom:6px;"></span>
+          </div>
+          <hr style="width:80%;border:0;border-top:1px solid #ccc;margin:8px 0;">
+          <div class="profile-phone-field">
+            <label style="font-size:0.95rem;color:#22223b;">Phone Number:</label>
+            <span id="profilePhone" style="display:block;font-weight:600;color:#4f2cc8;"></span>
+          </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+    `;
+    function toggleIcons(active) {
+      if (mobileMoreIcon) mobileMoreIcon.style.display = active ? 'none' : 'block';
+      if (closeIcon) closeIcon.style.display = active ? 'block' : 'none';
+    }
+    function showDropdown(type) {
+      let content = navLinks;
+      if (type === 'cart') content = cartDropdown;
+      if (type === 'user') content = `
+        <div class="user-dropdown-content">
+          <div class="profile-img-wrap">
+            <input type="file" id="profileImgInput" accept="image/*" style="display:none;">
+            <div class="profile-img-container">
+              <img id="profileImg" src="icons/user.png" alt="Profile" class="profile-img">
+              <span class="edit-pen" id="editPen"><img src="icons/fountain-pen.png" alt="Edit" style="width:18px;height:18px;"></span>
+            </div>
+          </div>
+          <div class="profile-fields">
+            <div class="profile-name-field">
+              <label style="font-size:0.95rem;color:#22223b;">Full Name:</label>
+              <span id="profileName" style="display:block;font-weight:600;color:#4f2cc8;margin-bottom:6px;"></span>
+            </div>
+            <hr style="width:80%;border:0;border-top:1px solid #ccc;margin:8px 0;">
+            <div class="profile-phone-field">
+              <label style="font-size:0.95rem;color:#22223b;">Phone Number:</label>
+              <span id="profilePhone" style="display:block;font-weight:600;color:#4f2cc8;"></span>
+            </div>
+          </div>
+          <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+      `;
+      // Fill the correct dropdown container for user icon
+      if (type === 'user') {
+        dropdownContent.innerHTML = content;
+        mobileNavDropdown.classList.add('open');
+        // Fetch user info from backend using client_id
+        const clientId = localStorage.getItem('client_id');
+        if (type === 'user' && clientId) {
+          fetch('php logics/get_client_info.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'client_id=' + encodeURIComponent(clientId)
+          })
+          .then(res => res.json())
+          .then(data => {
+            const nameSpan = document.getElementById('profileName');
+            const phoneSpan = document.getElementById('profilePhone');
+            const profileImg = document.getElementById('profileImg');
+            if (data.status === 'success') {
+              if (nameSpan) nameSpan.textContent = data.name;
+              if (phoneSpan) phoneSpan.textContent = data.phonenumber;
+              if (profileImg) profileImg.src = data.profile_image && data.profile_image !== '' ? data.profile_image : 'icons/user.png';
+            } else {
+              if (nameSpan) nameSpan.textContent = '';
+              if (phoneSpan) phoneSpan.textContent = '';
+              if (profileImg) profileImg.src = 'icons/user.png';
+            }
+            // One-step image upload logic
+            const imgInput = document.getElementById('profileImgInput');
+            const editPen = document.getElementById('editPen');
+            if (editPen && imgInput) {
+              editPen.onclick = function() { imgInput.click(); };
+              imgInput.onchange = function(e) {
+                if (e.target.files && e.target.files[0]) {
+                  const formData = new FormData();
+                  formData.append('client_id', clientId);
+                  formData.append('profile_image', e.target.files[0]);
+                  fetch('php logics/update_profile_image.php', {
+                    method: 'POST',
+                    body: formData
+                  })
+                  .then(res => res.json())
+                  .then(resp => {
+                    if (resp.status === 'success' && profileImg) {
+                      profileImg.src = resp.image;
+                      // Update all user icons
+                      document.querySelectorAll('#desktopUserIcon, #mobileUserIcon').forEach(function(icon){
+                        icon.src = resp.image;
+                        icon.style.borderRadius = '50%';
+                        icon.style.objectFit = 'cover';
+                      });
+                    } else {
+                      alert('Failed to upload image: ' + (resp.message || 'Unknown error'));
+                    }
+                  })
+                  .catch(() => {
+                    alert('Failed to upload image.');
+                  });
+                }
+              };
+            }
+          });
+        } else if (type === 'user') {
+          // Not logged in, clear fields
+          const nameSpan = document.getElementById('profileName');
+          const phoneSpan = document.getElementById('profilePhone');
+          if (nameSpan) nameSpan.textContent = '';
+          if (phoneSpan) phoneSpan.textContent = '';
+          const profileImg = document.getElementById('profileImg');
+          if (profileImg) profileImg.src = 'icons/user.png';
+        }
+      } else {
+        dropdownContent.innerHTML = content;
+        mobileNavDropdown.classList.add('open');
+      }
+      toggleIcons(true);
+      currentDropdown = type;
+    }
+    // Profile image upload logic for dropdown
+    let profileImgSrc = 'icons/user.png';
+    function updateProfileImg(src) {
+      profileImgSrc = src;
+      document.querySelectorAll('#profileImg').forEach(function(img){ img.src = src; });
+      document.querySelectorAll('.profile-icon').forEach(function(icon){
+        icon.src = src;
+        icon.style.borderRadius = '50%';
+        icon.style.objectFit = 'cover';
+      });
+    }
+    document.addEventListener('click', function(e) {
+      if (
+        (e.target.id === 'editPen' || e.target.id === 'editProfileImg') ||
+        (e.target.tagName === 'IMG' && e.target.src && e.target.src.includes('fountain-pen.png'))
+      ) {
+        const input = document.getElementById('profileImgInput');
+        if (input) input.click();
+      }
+    });
+
+    // Logout handler (delegated) - clears stored client info and redirects to login
+    function performLogout() {
+      // Clear locally stored client identifiers
+      localStorage.removeItem('client_id');
+      localStorage.removeItem('user_name');
+      localStorage.removeItem('user_phonenumber');
+      // Optionally clear all local storage keys related to the app
+      // localStorage.clear(); // uncomment if you want to wipe everything
+      // Redirect back to login page
+      window.location.href = 'login_form.html';
+    }
+
+    document.addEventListener('click', function(e) {
+      // Works for dynamically inserted logout button with id="logoutBtn"
+      const logoutBtn = e.target.closest && e.target.closest('button#logoutBtn');
+      if (logoutBtn) {
+        e.preventDefault();
+        performLogout();
+      }
+    });
+    document.addEventListener('change', function(e) {
+      if (e.target.id === 'profileImgInput' && e.target.files[0]) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          updateProfileImg(ev.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function hideDropdown() {
+  mobileNavDropdown.classList.remove('open');
+  // No separate userDropdown, just hide mobileNavDropdown
+  toggleIcons(false);
+  currentDropdown = null;
+    }
+    // Desktop events
+    if (desktopCartIcon) desktopCartIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentDropdown !== 'cart') showDropdown('cart');
+      else hideDropdown();
+    });
+    if (desktopUserIcon) desktopUserIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentDropdown !== 'user') showDropdown('user');
+      else hideDropdown();
+    });
+    // Mobile events
+    if (mobileCartIcon) mobileCartIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentDropdown !== 'cart') showDropdown('cart');
+      else hideDropdown();
+    });
+    if (mobileUserIcon) mobileUserIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentDropdown !== 'user') showDropdown('user');
+      else hideDropdown();
+    });
+    if (mobileMoreIcon) mobileMoreIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentDropdown !== 'nav') showDropdown('nav');
+      else hideDropdown();
+    });
+    if (closeIcon) closeIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      hideDropdown();
+    });
+    document.body.addEventListener('click', function(e) {
+      if (currentDropdown && !mobileNavDropdown.contains(e.target) && e.target !== closeIcon &&
+        e.target !== desktopCartIcon && e.target !== desktopUserIcon &&
+        e.target !== mobileCartIcon && e.target !== mobileUserIcon && e.target !== mobileMoreIcon) {
+        hideDropdown();
+      }
+    });
+    // Initial state
+    toggleIcons(false);
+  });
+
+
+  // Unified dropdown logic for user, cart, and more icons with professional icon toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileNavDropdown = document.getElementById('mobileNavDropdown');
+        const dropdownContent = document.getElementById('dropdownContent');
+        const closeIcon = document.getElementById('headerCloseIcon');
+        // Desktop icons
+        const desktopCartIcon = document.getElementById('desktopCartIcon');
+        const desktopUserIcon = document.getElementById('desktopUserIcon');
+        // Mobile icons
+        const mobileCartIcon = document.getElementById('mobileCartIcon');
+        const mobileUserIcon = document.getElementById('mobileUserIcon');
+        const mobileMoreIcon = document.getElementById('mobileMoreIcon');
+        let currentDropdown = null;
+        // Dropdown contents
+        const navLinks = `
+          <a href="#">HOME</a>
+          <a href="#">PRODUCTS</a>
+          <a href="#">ORDER</a>
+          <a href="#">CONTACTS</a>
+        `;
+        const cartDropdown = `
+          <div style="width:100%;text-align:center;padding:24px 0;">
+            <strong style="color:var(--primary);font-size:1.1rem;">Your Cart</strong><br><br>
+            <span style="color:var(--muted);font-size:0.95rem;">No items in cart.</span>
+          </div>
+        `;
+        const userDropdown = `
+         <div class="user-dropdown-content">
+        <div class="profile-img-wrap">
+          <input type="file" id="profileImgInput" accept="image/*" style="display:none;">
+          <div class="profile-img-container">
+            <img id="profileImg" src="icons/user.png" alt="Profile" class="profile-img">
+            <span class="edit-pen" id="editPen"><img src="icons/fountain-pen.png" alt="Edit" style="width:18px;height:18px;"></span>
+          </div>
+           <div class="profile-fields">
+            <div class="profile-name-field">
+              <label style="font-size:0.95rem;color:#22223b;">Full Name:</label>
+              <span id="profileName" style="display:block;font-weight:600;color:#4f2cc8;margin-bottom:6px;"></span>
+            </div>
+            <div class="profile-phone-field">
+              <label style="font-size:0.95rem;color:#22223b;">Phone Number:</label>
+              <span id="profilePhone" style="display:block;font-weight:600;color:#4f2cc8;"></span>
+            </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+        `;
+        function toggleIcons(active) {
+          if (mobileMoreIcon) mobileMoreIcon.style.display = active ? 'none' : 'block';
+          if (closeIcon) closeIcon.style.display = active ? 'block' : 'none';
+        }
+        function showDropdown(type) {
+          let content = navLinks;
+          if (type === 'cart') content = cartDropdown;
+          if (type === 'user') content = userDropdown;
+          dropdownContent.innerHTML = content;
+          mobileNavDropdown.classList.add('open');
+          toggleIcons(true);
+          currentDropdown = type;
+        }
+        function hideDropdown() {
+          mobileNavDropdown.classList.remove('open');
+          toggleIcons(false);
+          currentDropdown = null;
+        }
+        // Desktop events
+        if (desktopCartIcon) desktopCartIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'cart') showDropdown('cart');
+          else hideDropdown();
+        });
+        if (desktopUserIcon) desktopUserIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'user') showDropdown('user');
+          else hideDropdown();
+        });
+        // Mobile events
+        if (mobileCartIcon) mobileCartIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'cart') showDropdown('cart');
+          else hideDropdown();
+        });
+        if (mobileUserIcon) mobileUserIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'user') showDropdown('user');
+          else hideDropdown();
+        });
+        if (mobileMoreIcon) mobileMoreIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (currentDropdown !== 'nav') showDropdown('nav');
+          else hideDropdown();
+        });
+        if (closeIcon) closeIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          hideDropdown();
+        });
+        document.body.addEventListener('click', function(e) {
+          if (currentDropdown && !mobileNavDropdown.contains(e.target) && e.target !== closeIcon &&
+            e.target !== desktopCartIcon && e.target !== desktopUserIcon &&
+            e.target !== mobileCartIcon && e.target !== mobileUserIcon && e.target !== mobileMoreIcon) {
+            hideDropdown();
+          }
+        })
+        });
+
+
+         document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('client_id')) {
+        window.location.href = 'login_form.html';
+        return;
+      }
+      // Fetch and set user profile image for icons
+      const clientId = localStorage.getItem('client_id');
+      if (clientId) {
+        fetch('php logics/get_client_info.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'client_id=' + encodeURIComponent(clientId)
+        })
+        .then(res => res.json())
+        .then(data => {
+          const imgSrc = (data.status === 'success' && data.profile_image && data.profile_image !== '') ? data.profile_image : 'icons/user.png';
+          var desktopIcon = document.getElementById('desktopUserIcon');
+          var mobileIcon = document.getElementById('mobileUserIcon');
+          if (desktopIcon) desktopIcon.src = imgSrc;
+          if (mobileIcon) mobileIcon.src = imgSrc;
+        });
+      }
+    });
+
+    // Initial render
+    updateUI();
+ 
+</script>
+</html>
