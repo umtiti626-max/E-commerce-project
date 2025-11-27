@@ -987,8 +987,47 @@
         <textarea id="message" name="message" placeholder=" " required></textarea>
         <label for="message">Message</label>
       </div>
-      <button class="send-btn" id="sendBtn">Send Message</button>
+      <button class="send-btn" id="sendBtn" type="button">Send Message</button>
       <div id="formStatus" style="margin-top:12px;font-size:1.05rem;"></div>
+    <script>
+      // script to send EMail -----------------------------------------------------------------//
+    document.getElementById('sendBtn').addEventListener('click', function() {
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var subject = document.getElementById('subject').value.trim();
+      var message = document.getElementById('message').value.trim();
+      var statusDiv = document.getElementById('formStatus');
+      statusDiv.textContent = '';
+      if (!name || !email || !subject || !message) {
+        statusDiv.textContent = 'Please fill in all fields.';
+        statusDiv.style.color = 'red';
+        return;
+      }
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'backend/send_contact_email.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          try {
+            var resp = JSON.parse(xhr.responseText);
+            if (xhr.status === 200 && resp.success) {
+              statusDiv.textContent = 'Message sent successfully!';
+              statusDiv.style.color = 'green';
+              document.querySelector('.contact-form').reset();
+            } else {
+              statusDiv.textContent = resp.error || 'Failed to send message.';
+              statusDiv.style.color = 'red';
+            }
+          } catch (e) {
+            statusDiv.textContent = 'Failed to send message.';
+            statusDiv.style.color = 'red';
+          }
+        }
+      };
+      var params = 'name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email) + '&subject=' + encodeURIComponent(subject) + '&message=' + encodeURIComponent(message);
+      xhr.send(params);
+    });
+    </script>
     </form>
     <div class="contact-info">
       <div class="info-block">
@@ -1002,7 +1041,12 @@
         </ul>
       </div>
       <div class="map-block">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=123+Main+Street,Anytown,USA&zoom=13&size=320x160&maptype=roadmap&markers=color:purple%7Clabel:S%7C123+Main+Street,Anytown,USA&key=AIzaSyDUMMYKEY" alt="Map" />
+        <!-- Interactive map: uses Geolocation to center map on user's current position.
+             Falls back to static map image if geolocation is unavailable/denied. -->
+        <div id="map-wrapper" style="width:100px;height:100px;border-radius:4px;overflow:hidden;">
+          <!-- iframe will be injected here -->
+          <img id="map-fallback" src="https://maps.googleapis.com/maps/api/staticmap?center=Malingo+street,Buea,Cameroon&zoom=13&size=100x100&maptype=roadmap&markers=color:purple%7Clabel:S%7CMalingo+street,Buea,Cameroon&key=AIzaSyDUMMYKEY" alt="Map" style="width:100px;height:100px;object-fit:cover;display:block;" />
+        </div>
         <div class="map-label">Find Us Here<br><span style="font-size:0.98rem;color:#6e6e6e;">Malingo street, Buea, Cameroon</span></div>
       </div>
     </div>
